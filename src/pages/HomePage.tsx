@@ -7,6 +7,8 @@ import { productsData } from '../data/products';
 import { zodiacData } from '../data/zodiac';
 import { faqsData } from '../data/faqs';
 import { doctorProfile } from '../data/doctor';
+import { servicesListData, servicesPosterImg } from '../data/servicesList';
+
 import {
   Calendar,
   ShieldCheck,
@@ -16,7 +18,16 @@ import {
   ChevronDown,
   ChevronUp,
   Flame,
-  Globe
+  Globe,
+  Sparkles,
+  Phone,
+  TrendingUp,
+  PenTool,
+  Home,
+  Edit3,
+  Gem,
+  Hash,
+  MessageCircle
 } from 'lucide-react';
 
 interface Props {
@@ -37,6 +48,7 @@ export const HomePage: React.FC<Props> = ({
   const [selectedZodiacId, setSelectedZodiacId] = useState('aries');
   const [activeCategoryFilter, setActiveCategoryFilter] = useState<string>('All');
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+  const [showFullServicesPoster, setShowFullServicesPoster] = useState(false);
 
   const selectedZodiac = zodiacData.find((z) => z.id === selectedZodiacId) || zodiacData[0];
 
@@ -52,6 +64,22 @@ export const HomePage: React.FC<Props> = ({
 
     return matchesSearch && matchesCategory;
   });
+
+  const getServiceIcon = (iconName: string) => {
+    switch (iconName) {
+      case 'Sparkles': return <Sparkles className="w-5 h-5 text-amber-400" />;
+      case 'Hash': return <Hash className="w-5 h-5 text-amber-400" />;
+      case 'Phone': return <Phone className="w-5 h-5 text-amber-400" />;
+      case 'TrendingUp': return <TrendingUp className="w-5 h-5 text-amber-400" />;
+      case 'PenTool': return <PenTool className="w-5 h-5 text-amber-400" />;
+      case 'Home': return <Home className="w-5 h-5 text-amber-400" />;
+      case 'Edit3': return <Edit3 className="w-5 h-5 text-amber-400" />;
+      case 'ShieldCheck': return <ShieldCheck className="w-5 h-5 text-amber-400" />;
+      case 'Gem': return <Gem className="w-5 h-5 text-amber-400" />;
+      case 'Flame': return <Flame className="w-5 h-5 text-amber-400" />;
+      default: return <Sparkles className="w-5 h-5 text-amber-400" />;
+    }
+  };
 
   return (
     <div className="space-y-16 pb-20 md:pb-16">
@@ -69,6 +97,20 @@ export const HomePage: React.FC<Props> = ({
             </div>
           </div>
           <span className="text-[10px] font-bold text-amber-400">Dr. Preity</span>
+        </button>
+
+        <button
+          onClick={() => {
+            document.getElementById('our-services-section')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          className="flex-shrink-0 flex flex-col items-center gap-1 group"
+        >
+          <div className="w-14 h-14 rounded-full p-0.5 bg-gradient-to-tr from-cyan-400 to-amber-500">
+            <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center border-2 border-slate-950 text-cyan-300 font-bold text-xs">
+              🌟 10 Services
+            </div>
+          </div>
+          <span className="text-[10px] font-medium text-slate-300">Services</span>
         </button>
 
         <button
@@ -103,21 +145,6 @@ export const HomePage: React.FC<Props> = ({
 
         <button
           onClick={() => {
-            setActiveCategoryFilter('Crystal');
-            document.getElementById('catalog-section')?.scrollIntoView({ behavior: 'smooth' });
-          }}
-          className="flex-shrink-0 flex flex-col items-center gap-1 group"
-        >
-          <div className="w-14 h-14 rounded-full p-0.5 bg-gradient-to-tr from-cyan-400 to-amber-500">
-            <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center border-2 border-slate-950 text-cyan-300 font-bold text-xs">
-              ✨ Pyrite
-            </div>
-          </div>
-          <span className="text-[10px] font-medium text-slate-300">Crystals</span>
-        </button>
-
-        <button
-          onClick={() => {
             setActivePage('remedies-calculator');
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
@@ -147,7 +174,7 @@ export const HomePage: React.FC<Props> = ({
               {/* Live Availability Badge */}
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-amber-500/40 text-amber-400 text-xs font-semibold tracking-wider">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-                <span>🔴 1,420+ Online • Dr. Preity Consultations Available</span>
+                <span>🔴 1,420+ Online • Call/WhatsApp: 8390125338</span>
               </div>
 
               <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold text-white tracking-tight leading-[1.12]">
@@ -158,7 +185,7 @@ export const HomePage: React.FC<Props> = ({
               </h1>
 
               <p className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                Vedic Astrology, Kundli Chart Reading, 100% X-Ray Lab Certified Navratna Gemstones & Energized Nepali Rudrakshas guided by <strong className="text-white">Dr. Preity</strong> in Arizona.
+                Vedic Astrology, Numerology, Mobile & Business Astro-Numero Consultation, 100% Lab Certified Gemstones & Rudrakshas by <strong className="text-white">Dr. Preity</strong> (8390125338).
               </p>
 
               {/* CTAs */}
@@ -168,19 +195,18 @@ export const HomePage: React.FC<Props> = ({
                   className="w-full sm:w-auto px-8 py-4 rounded-2xl gold-shimmer-btn text-slate-950 font-extrabold text-base shadow-2xl shadow-amber-500/30 transform active:scale-95 transition-all flex items-center justify-center gap-2.5"
                 >
                   <Calendar className="w-5 h-5 text-slate-950" />
-                  <span>Book 1-on-1 Session with Dr. Preity</span>
+                  <span>Book Session with Dr. Preity (8390125338)</span>
                 </button>
 
-                <button
-                  onClick={() => {
-                    setActiveCategoryFilter('Rudraksha');
-                    document.getElementById('catalog-section')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white font-bold text-base border border-amber-500/30 transition-all flex items-center justify-center gap-2"
+                <a
+                  href="https://wa.me/918390125338"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-base shadow-lg transition-all flex items-center justify-center gap-2"
                 >
-                  <span>Shop Lab Certified Remedies</span>
-                  <ArrowRight className="w-4 h-4 text-amber-400" />
-                </button>
+                  <MessageCircle className="w-5 h-5" />
+                  <span>WhatsApp 8390125338</span>
+                </a>
               </div>
 
               {/* Trust Badges */}
@@ -233,25 +259,25 @@ export const HomePage: React.FC<Props> = ({
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
                     <div className="absolute bottom-4 left-4 right-4">
                       <span className="text-[10px] font-extrabold px-3 py-1 rounded-full bg-amber-500 text-slate-950 font-mono uppercase tracking-wider shadow">
-                        Renowned Occult Specialist
+                        Awaken • Align • Attract
                       </span>
                       <h3 className="text-2xl font-bold text-white mt-1">Dr. Preity</h3>
-                      <p className="text-xs text-slate-300">Vedic Astrologer & Spiritual Healer</p>
+                      <p className="text-xs text-amber-400 font-mono">Call/WhatsApp: 8390125338</p>
                     </div>
                   </div>
 
                   <div className="bg-slate-950 rounded-2xl p-4 border border-slate-800 text-xs space-y-2.5">
                     <div className="flex justify-between">
                       <span className="text-slate-400">Specialties:</span>
-                      <span className="text-white font-bold">Kundli, Numerology, Vastu</span>
+                      <span className="text-white font-bold">Astrology, Numerology, Vastu</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-slate-400">Remedies:</span>
-                      <span className="text-amber-400 font-bold">Abhimantrit Rudraksha & Gems</span>
+                      <span className="text-amber-400 font-bold">Abhimantrit Rudraksh & Gems</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-400">Qualifications:</span>
-                      <span className="text-amber-400 font-mono text-[10px]">[Add Dr. Preity Credentials]</span>
+                      <span className="text-slate-400">Direct Helpline:</span>
+                      <span className="text-emerald-400 font-mono font-bold">8390125338</span>
                     </div>
                   </div>
 
@@ -260,7 +286,7 @@ export const HomePage: React.FC<Props> = ({
                     className="w-full py-3.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-extrabold text-xs rounded-xl shadow-lg flex items-center justify-center gap-2"
                   >
                     <Calendar className="w-4 h-4" />
-                    <span>Book Private Session with Dr. Preity</span>
+                    <span>Book Private Session (8390125338)</span>
                   </button>
 
                 </div>
@@ -269,6 +295,86 @@ export const HomePage: React.FC<Props> = ({
 
           </div>
         </div>
+      </section>
+
+      {/* NEW SECTION: OFFICIAL 10 SERVICES OF DR. PREITY */}
+      <section id="our-services-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        
+        <div className="bg-gradient-to-r from-slate-900 via-slate-950 to-amber-950/60 rounded-3xl p-6 sm:p-10 border border-amber-500/30 shadow-2xl space-y-8">
+          
+          <SectionHeader
+            badge="Official Practice Spectrum"
+            title="OUR SERVICES — Arizona Occult by Dr. Preity"
+            subtitle="Align Your Energy • Attract Success • Remove Negativity"
+            centered
+          />
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            {/* Left: Embedded Official Services Poster Card */}
+            <div className="lg:col-span-5 flex flex-col items-center">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-amber-500/40 bg-slate-950 aspect-[4/5] w-full max-w-sm group">
+                <img
+                  src={servicesPosterImg}
+                  alt="Arizona Occult Our Services Official Poster"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-slate-950/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <button
+                    onClick={() => setShowFullServicesPoster(true)}
+                    className="bg-amber-500 text-slate-950 font-extrabold text-xs px-4 py-2 rounded-xl shadow-xl flex items-center gap-2"
+                  >
+                    <span>View Full Poster</span>
+                  </button>
+                </div>
+              </div>
+
+              <div className="text-center mt-3 text-xs text-amber-400 font-mono">
+                📞 Direct Contact: 8390125338
+              </div>
+            </div>
+
+            {/* Right: 10 Interactive Service Cards */}
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {servicesListData.map((srv) => (
+                <div
+                  key={srv.id}
+                  className="bg-slate-900/90 border border-slate-800 hover:border-amber-500/50 p-4 rounded-2xl shadow-sm hover:shadow-xl transition-all flex flex-col justify-between space-y-3 group"
+                >
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div className="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                        {getServiceIcon(srv.iconName)}
+                      </div>
+                      <span className="text-[9px] font-extrabold px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800 font-mono uppercase">
+                        {srv.tag}
+                      </span>
+                    </div>
+
+                    <h3 className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors">
+                      {srv.title}
+                    </h3>
+
+                    <p className="text-xs text-slate-400 leading-relaxed">
+                      {srv.shortDesc}
+                    </p>
+                  </div>
+
+                  <button
+                    onClick={openConsultationModal}
+                    className="w-full py-2 bg-slate-800 hover:bg-amber-600 text-slate-200 hover:text-white font-bold text-xs rounded-xl transition-colors flex items-center justify-center gap-1.5"
+                  >
+                    <span>Book Service</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              ))}
+            </div>
+
+          </div>
+
+        </div>
+
       </section>
 
       {/* 2. PRO ZODIAC REMEDIES CALCULATOR */}
@@ -339,7 +445,7 @@ export const HomePage: React.FC<Props> = ({
                 onClick={openConsultationModal}
                 className="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs rounded-xl shadow"
               >
-                Confirm Recommendation with Dr. Preity
+                Confirm Recommendation with Dr. Preity (8390125338)
               </button>
             </div>
           </div>
@@ -354,7 +460,7 @@ export const HomePage: React.FC<Props> = ({
           <SectionHeader
             badge="100% Authentic & Lab Certified"
             title="Spiritual Remedies Catalog"
-            subtitle="Hand-selected Nepali Rudrakshas, Navratna Gemstones, and Energized Crystals."
+            subtitle="Hand-selected Nepali Rudrakshas, Navratna Gemstones, and Energized Crystal Bracelets."
           />
 
           {/* Filter Categories */}
@@ -424,11 +530,12 @@ export const HomePage: React.FC<Props> = ({
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
                   <Award className="w-4 h-4 text-amber-400" />
-                  <span>Verified Credentials Placeholder</span>
+                  <span>Verified Credentials & Helpline</span>
                 </span>
-                <PlaceholderBadge text="Client Placeholder Data" />
+                <span className="text-xs text-emerald-400 font-mono font-bold">8390125338</span>
               </div>
               <ul className="space-y-1.5 text-xs text-slate-300 font-mono">
+                <li>• Phone / WhatsApp: 8390125338</li>
                 <li>• Education: {doctorProfile.educationPlaceholder}</li>
                 <li>• Certifications: {doctorProfile.qualificationsPlaceholder}</li>
                 <li>• Experience: {doctorProfile.experiencePlaceholder}</li>
@@ -440,7 +547,7 @@ export const HomePage: React.FC<Props> = ({
                 onClick={openConsultationModal}
                 className="px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs transition-colors shadow-md"
               >
-                Book 1-on-1 Session with Dr. Preity
+                Book 1-on-1 Session with Dr. Preity (8390125338)
               </button>
             </div>
           </div>
@@ -465,7 +572,7 @@ export const HomePage: React.FC<Props> = ({
             <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-3">
               <div className="text-amber-400 flex gap-1 text-xs">★★★★★</div>
               <p className="text-slate-300 text-xs italic">
-                "[Add Verified Client Review #1 regarding Dr. Preity Kundli guidance and 7 Mukhi Rudraksha impact here]"
+                "[Add Verified Client Review #1 regarding Dr. Preity Kundli guidance and Abundance Bracelet impact here]"
               </p>
               <div className="text-xs font-bold text-white pt-2 border-t border-slate-800">
                 - Client Placeholder #1 (Phoenix, AZ)
@@ -475,7 +582,7 @@ export const HomePage: React.FC<Props> = ({
             <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-3">
               <div className="text-amber-400 flex gap-1 text-xs">★★★★★</div>
               <p className="text-slate-300 text-xs italic">
-                "[Add Verified Client Review #2 regarding Ceylon Pukhraj authenticity and business growth here]"
+                "[Add Verified Client Review #2 regarding Business Astro-Numero consultation & logo designing success here]"
               </p>
               <div className="text-xs font-bold text-white pt-2 border-t border-slate-800">
                 - Client Placeholder #2 (Tucson, AZ)
@@ -485,7 +592,7 @@ export const HomePage: React.FC<Props> = ({
             <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-3">
               <div className="text-amber-400 flex gap-1 text-xs">★★★★★</div>
               <p className="text-slate-300 text-xs italic">
-                "[Add Verified Client Review #3 regarding Pyrite bracelet & Vastu remedies for house here]"
+                "[Add Verified Client Review #3 regarding Sulemani Hakik bracelet & Vastu consultation here]"
               </p>
               <div className="text-xs font-bold text-white pt-2 border-t border-slate-800">
                 - Client Placeholder #3 (Scottsdale, AZ)
@@ -529,6 +636,25 @@ export const HomePage: React.FC<Props> = ({
           })}
         </div>
       </section>
+
+      {/* FULL SERVICES POSTER MODAL */}
+      {showFullServicesPoster && (
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="relative max-w-2xl w-full bg-slate-900 rounded-3xl p-4 border border-amber-500/40 shadow-2xl">
+            <button
+              onClick={() => setShowFullServicesPoster(false)}
+              className="absolute top-6 right-6 p-2.5 rounded-full bg-slate-800 hover:bg-slate-700 text-white z-10 shadow-lg"
+            >
+              ✕
+            </button>
+            <img
+              src={servicesPosterImg}
+              alt="Dr. Preity Official 10 Services Poster"
+              className="w-full h-auto rounded-2xl border border-slate-800"
+            />
+          </div>
+        </div>
+      )}
 
     </div>
   );

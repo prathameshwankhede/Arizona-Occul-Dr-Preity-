@@ -7,39 +7,41 @@
   }
   
   body {
-    background-color: #faf8f5;
-    color: #1e293b;
+    background-color: #fffdfa;
+    color: #0f172a;
     @apply antialiased selection:bg-amber-500 selection:text-white;
   }
 }
 
-/* Onaar Gracious Luxury Styling */
-.onaar-bg {
-  background-color: #faf8f5;
+/* GemsMantra Official Signature Theme */
+.gems-bg {
+  background-color: #fffdfa;
 }
 
-.onaar-card {
+.gems-card {
   background-color: #ffffff;
-  border: 1px solid #e5decf;
-  box-shadow: 0 4px 20px -2px rgba(15, 56, 44, 0.06);
+  border: 1px solid #fef3c7;
+  box-shadow: 0 4px 20px -2px rgba(217, 119, 6, 0.08);
 }
 
-.onaar-card:hover {
-  border-color: #d97706;
-  box-shadow: 0 10px 30px -5px rgba(217, 119, 6, 0.15);
+.gems-card:hover {
+  border-color: #f59e0b;
+  box-shadow: 0 10px 30px -5px rgba(245, 158, 11, 0.2);
 }
 
-.emerald-header {
-  background: linear-gradient(135deg, #092e24 0%, #0f382c 50%, #164e3d 100%);
+.gems-topbar {
+  background: linear-gradient(135deg, #78350f 0%, #b45309 50%, #d97706 100%);
+  color: #fffef0;
 }
 
-.emerald-shimmer-btn {
-  background: linear-gradient(135deg, #0f382c 0%, #165b46 50%, #092e24 100%);
+.gems-gold-btn {
+  background: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #b45309 100%);
+  color: #ffffff;
   position: relative;
   overflow: hidden;
 }
 
-.emerald-shimmer-btn::after {
+.gems-gold-btn::after {
   content: '';
   position: absolute;
   top: -50%;
@@ -49,16 +51,11 @@
   background: linear-gradient(
     60deg,
     transparent 30%,
-    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.3) 50%,
     transparent 70%
   );
   transform: rotate(30deg);
-  animation: shimmer 3.5s infinite;
-}
-
-.gold-badge {
-  background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
-  color: #ffffff;
+  animation: shimmer 3s infinite;
 }
 
 @keyframes shimmer {

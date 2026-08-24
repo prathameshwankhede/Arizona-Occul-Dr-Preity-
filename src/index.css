@@ -7,60 +7,58 @@
   }
   
   body {
-    background-color: #060c1e;
-    color: #f1f5f9;
-    @apply antialiased selection:bg-amber-500 selection:text-slate-950;
+    background-color: #fbf9f4;
+    color: #1e293b;
+    @apply antialiased selection:bg-amber-500 selection:text-white;
   }
 }
 
-/* Arizona Occult Midnight Navy & Gold Signature Palette */
-.arizona-navy-bg {
-  background: linear-gradient(180deg, #050b1a 0%, #07122b 50%, #0a1738 100%);
+/* Arizona Occult Light Celestial & Royal Navy Theme */
+.arizona-light-bg {
+  background-color: #fbf9f4;
 }
 
-.arizona-card {
-  background: rgba(12, 24, 56, 0.75);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(212, 175, 55, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+.hero-sky-gradient {
+  background: linear-gradient(180deg, #e8f1fa 0%, #edf4fc 50%, #f7fafc 100%);
 }
 
-.arizona-card:hover {
-  border-color: rgba(212, 175, 55, 0.6);
-  box-shadow: 0 12px 40px 0 rgba(212, 175, 55, 0.15);
+.arizona-navy-btn {
+  background: linear-gradient(135deg, #0b2545 0%, #134074 100%);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(11, 37, 69, 0.25);
+  transition: all 0.3s ease;
+}
+
+.arizona-navy-btn:hover {
+  background: linear-gradient(135deg, #081c35 0%, #0f335e 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(11, 37, 69, 0.35);
 }
 
 .arizona-gold-btn {
-  background: linear-gradient(135deg, #d4af37 0%, #f3e5ab 50%, #c5a028 100%);
-  color: #060c1e;
+  background: linear-gradient(135deg, #d4af37 0%, #e6c253 50%, #c59b27 100%);
+  color: #0b1a30;
   font-weight: 800;
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.25);
   transition: all 0.3s ease;
 }
 
 .arizona-gold-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.45);
   filter: brightness(1.05);
+  transform: translateY(-1px);
 }
 
-.arizona-whatsapp-btn {
-  background-color: #0b8043;
-  color: #ffffff;
-  font-weight: 700;
-  box-shadow: 0 4px 15px rgba(11, 128, 67, 0.3);
+.arizona-light-card {
+  background-color: #ffffff;
+  border: 1px solid #e8e2d5;
+  box-shadow: 0 4px 20px -2px rgba(11, 37, 69, 0.05);
   transition: all 0.3s ease;
 }
 
-.arizona-whatsapp-btn:hover {
-  background-color: #096b37;
-  transform: translateY(-1px);
-}
-
-.gold-gradient-text {
-  background: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #d97706 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.arizona-light-card:hover {
+  border-color: #d4af37;
+  box-shadow: 0 10px 25px -5px rgba(212, 175, 55, 0.2);
 }
 
 .hide-scrollbar::-webkit-scrollbar {

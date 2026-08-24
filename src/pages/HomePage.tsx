@@ -8,7 +8,6 @@ import { zodiacData } from '../data/zodiac';
 import { faqsData } from '../data/faqs';
 import { doctorProfile } from '../data/doctor';
 import {
-  Sparkles,
   Calendar,
   ShieldCheck,
   Award,
@@ -16,7 +15,8 @@ import {
   Sun,
   ChevronDown,
   ChevronUp,
-  Flame
+  Flame,
+  Globe
 } from 'lucide-react';
 
 interface Props {
@@ -28,6 +28,7 @@ interface Props {
 }
 
 export const HomePage: React.FC<Props> = ({
+  setActivePage,
   openConsultationModal,
   openQuickView,
   onAddToCart,
@@ -53,100 +54,177 @@ export const HomePage: React.FC<Props> = ({
   });
 
   return (
-    <div className="space-y-20 pb-16">
+    <div className="space-y-16 pb-20 md:pb-16">
       
-      {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-amber-950/30 text-white pt-12 pb-20 lg:pt-20 lg:pb-32 border-b border-amber-900/30">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-yellow-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* 0. PRO DEVELOPER MOBILE QUICK STORY HIGHLIGHTS */}
+      <div className="bg-slate-950 border-b border-amber-900/30 py-3 px-4 overflow-x-auto hide-scrollbar flex items-center gap-3">
+        
+        <button
+          onClick={openConsultationModal}
+          className="flex-shrink-0 flex flex-col items-center gap-1 group"
+        >
+          <div className="w-14 h-14 rounded-full p-0.5 bg-gradient-to-tr from-amber-500 via-amber-400 to-yellow-300">
+            <div className="w-full h-full rounded-full bg-slate-900 overflow-hidden flex items-center justify-center border-2 border-slate-950 group-hover:scale-105 transition-transform">
+              <img src={doctorProfile.photoUrl} alt="Dr. Preity" className="w-full h-full object-cover" />
+            </div>
+          </div>
+          <span className="text-[10px] font-bold text-amber-400">Dr. Preity</span>
+        </button>
+
+        <button
+          onClick={() => {
+            setActiveCategoryFilter('Rudraksha');
+            document.getElementById('catalog-section')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          className="flex-shrink-0 flex flex-col items-center gap-1 group"
+        >
+          <div className="w-14 h-14 rounded-full p-0.5 bg-gradient-to-tr from-amber-600 to-yellow-500">
+            <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center border-2 border-slate-950 text-amber-400 font-bold text-xs">
+              📿 Siddha
+            </div>
+          </div>
+          <span className="text-[10px] font-medium text-slate-300">Rudraksha</span>
+        </button>
+
+        <button
+          onClick={() => {
+            setActiveCategoryFilter('Gemstone');
+            document.getElementById('catalog-section')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          className="flex-shrink-0 flex flex-col items-center gap-1 group"
+        >
+          <div className="w-14 h-14 rounded-full p-0.5 bg-gradient-to-tr from-yellow-400 to-amber-600">
+            <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center border-2 border-slate-950 text-amber-300 font-bold text-xs">
+              💎 Pukhraj
+            </div>
+          </div>
+          <span className="text-[10px] font-medium text-slate-300">Gemstones</span>
+        </button>
+
+        <button
+          onClick={() => {
+            setActiveCategoryFilter('Crystal');
+            document.getElementById('catalog-section')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          className="flex-shrink-0 flex flex-col items-center gap-1 group"
+        >
+          <div className="w-14 h-14 rounded-full p-0.5 bg-gradient-to-tr from-cyan-400 to-amber-500">
+            <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center border-2 border-slate-950 text-cyan-300 font-bold text-xs">
+              ✨ Pyrite
+            </div>
+          </div>
+          <span className="text-[10px] font-medium text-slate-300">Crystals</span>
+        </button>
+
+        <button
+          onClick={() => {
+            setActivePage('remedies-calculator');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          className="flex-shrink-0 flex flex-col items-center gap-1 group"
+        >
+          <div className="w-14 h-14 rounded-full p-0.5 bg-gradient-to-tr from-purple-500 to-amber-500">
+            <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center border-2 border-slate-950 text-purple-300 font-bold text-xs">
+              🔮 Kundli
+            </div>
+          </div>
+          <span className="text-[10px] font-medium text-slate-300">Calculator</span>
+        </button>
+
+      </div>
+
+      {/* 1. ULTRA-GRAND HERO SECTION */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-amber-950/40 text-white pt-8 pb-16 lg:pt-20 lg:pb-32 border-b border-amber-900/40">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-yellow-500/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
             {/* Left Content */}
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
               
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-amber-500/40 text-amber-400 text-xs font-semibold uppercase tracking-wider">
-                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                <span>100% Lab Certified & Abhimantrit Remedies</span>
+              {/* Live Availability Badge */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-amber-500/40 text-amber-400 text-xs font-semibold tracking-wider">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+                <span>🔴 1,420+ Online • Dr. Preity Consultations Available</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold text-white tracking-tight leading-[1.15]">
+              <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold text-white tracking-tight leading-[1.12]">
                 Unlock Cosmic Destiny.{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-500">
-                  Authentic Remedies.
+                <span className="gold-gradient-text block mt-1">
+                  Authentic Spiritual Remedies.
                 </span>
               </h1>
 
-              <p className="text-lg text-slate-300 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                Guiding lives through Vedic Astrology, Kundli Reading, 100% Lab Certified Navratna Gemstones, authentic Nepali Rudrakshas, and Vastu solutions by <strong className="text-white">Dr. Preity</strong>.
+              <p className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                Vedic Astrology, Kundli Chart Reading, 100% X-Ray Lab Certified Navratna Gemstones & Energized Nepali Rudrakshas guided by <strong className="text-white">Dr. Preity</strong> in Arizona.
               </p>
 
               {/* CTAs */}
-              <div className="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+              <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5">
                 <button
                   onClick={openConsultationModal}
-                  className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-500 hover:from-amber-700 hover:to-yellow-600 text-slate-950 font-extrabold text-base shadow-xl shadow-amber-500/25 hover:shadow-2xl transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2.5"
+                  className="w-full sm:w-auto px-8 py-4 rounded-2xl gold-shimmer-btn text-slate-950 font-extrabold text-base shadow-2xl shadow-amber-500/30 transform active:scale-95 transition-all flex items-center justify-center gap-2.5"
                 >
-                  <Calendar className="w-5 h-5" />
-                  <span>Consult Dr. Preity Now</span>
+                  <Calendar className="w-5 h-5 text-slate-950" />
+                  <span>Book 1-on-1 Session with Dr. Preity</span>
                 </button>
 
                 <button
                   onClick={() => {
                     setActiveCategoryFilter('Rudraksha');
-                    const element = document.getElementById('catalog-section');
-                    element?.scrollIntoView({ behavior: 'smooth' });
+                    document.getElementById('catalog-section')?.scrollIntoView({ behavior: 'smooth' });
                   }}
-                  className="w-full sm:w-auto px-7 py-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-white font-semibold text-base border border-slate-700 transition-all flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 hover:text-white font-bold text-base border border-amber-500/30 transition-all flex items-center justify-center gap-2"
                 >
-                  <span>Shop Sacred Remedies</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <span>Shop Lab Certified Remedies</span>
+                  <ArrowRight className="w-4 h-4 text-amber-400" />
                 </button>
               </div>
 
               {/* Trust Badges */}
-              <div className="pt-8 border-t border-slate-800 grid grid-cols-3 gap-4 text-left">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0">
+              <div className="pt-6 border-t border-slate-800/80 grid grid-cols-3 gap-3 text-left">
+                <div className="flex items-center gap-2">
+                  <div className="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0">
                     <ShieldCheck className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-xs font-bold text-white block">Lab Certified</span>
-                    <span className="text-[11px] text-slate-400">X-Ray Guarantee</span>
+                    <span className="text-xs font-bold text-white block leading-tight">100% Certified</span>
+                    <span className="text-[10px] text-slate-400">X-Ray Guarantee</span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0">
+                <div className="flex items-center gap-2">
+                  <div className="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0">
                     <Flame className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-xs font-bold text-white block">Pran Pratishtha</span>
-                    <span className="text-[11px] text-slate-400">Energized Remedies</span>
+                    <span className="text-xs font-bold text-white block leading-tight">Pran Pratishtha</span>
+                    <span className="text-[10px] text-slate-400">Vedic Energized</span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0">
-                    <Award className="w-4 h-4" />
+                <div className="flex items-center gap-2">
+                  <div className="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0">
+                    <Globe className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-xs font-bold text-white block">Dr. Preity</span>
-                    <span className="text-[11px] text-slate-400">Occult Specialist</span>
+                    <span className="text-xs font-bold text-white block leading-tight">Global Express</span>
+                    <span className="text-[10px] text-slate-400">Insured Shipping</span>
                   </div>
                 </div>
               </div>
 
             </div>
 
-            {/* Right Card */}
+            {/* Right Card Visual */}
             <div className="lg:col-span-5 flex justify-center">
               <div className="relative w-full max-w-md">
-                <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-amber-600 to-yellow-500 opacity-30 blur-lg animate-pulse-glow" />
-                <div className="relative bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-6">
+                <div className="absolute -inset-1.5 rounded-3xl bg-gradient-to-r from-amber-500 to-yellow-400 opacity-40 blur-xl animate-pulse-glow" />
+                <div className="relative bg-slate-900/90 border border-amber-500/30 rounded-3xl p-6 shadow-2xl space-y-5">
                   
-                  <div className="relative h-64 rounded-2xl overflow-hidden bg-slate-950 border border-slate-800">
+                  <div className="relative h-72 rounded-2xl overflow-hidden bg-slate-950 border border-slate-800">
                     <img
                       src={doctorProfile.photoUrl}
                       alt="Dr. Preity Astrologer"
@@ -154,34 +232,35 @@ export const HomePage: React.FC<Props> = ({
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
                     <div className="absolute bottom-4 left-4 right-4">
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500 text-slate-950 font-mono uppercase tracking-wider">
-                        Occult Specialist
+                      <span className="text-[10px] font-extrabold px-3 py-1 rounded-full bg-amber-500 text-slate-950 font-mono uppercase tracking-wider shadow">
+                        Renowned Occult Specialist
                       </span>
-                      <h3 className="text-xl font-bold text-white mt-1">Dr. Preity</h3>
+                      <h3 className="text-2xl font-bold text-white mt-1">Dr. Preity</h3>
                       <p className="text-xs text-slate-300">Vedic Astrologer & Spiritual Healer</p>
                     </div>
                   </div>
 
                   <div className="bg-slate-950 rounded-2xl p-4 border border-slate-800 text-xs space-y-2.5">
                     <div className="flex justify-between">
-                      <span className="text-slate-400">Services:</span>
-                      <span className="text-white font-semibold">Kundli, Numerology, Vastu</span>
+                      <span className="text-slate-400">Specialties:</span>
+                      <span className="text-white font-bold">Kundli, Numerology, Vastu</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-slate-400">Remedies:</span>
-                      <span className="text-amber-400 font-semibold">Abhimantrit Rudraksha & Gems</span>
+                      <span className="text-amber-400 font-bold">Abhimantrit Rudraksha & Gems</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-400">Credentials:</span>
+                      <span className="text-slate-400">Qualifications:</span>
                       <span className="text-amber-400 font-mono text-[10px]">[Add Dr. Preity Credentials]</span>
                     </div>
                   </div>
 
                   <button
                     onClick={openConsultationModal}
-                    className="w-full py-3 bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold rounded-xl text-xs shadow-md"
+                    className="w-full py-3.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-extrabold text-xs rounded-xl shadow-lg flex items-center justify-center gap-2"
                   >
-                    Book Private Kundli Session
+                    <Calendar className="w-4 h-4" />
+                    <span>Book Private Session with Dr. Preity</span>
                   </button>
 
                 </div>
@@ -192,9 +271,9 @@ export const HomePage: React.FC<Props> = ({
         </div>
       </section>
 
-      {/* 2. INTERACTIVE ZODIAC & REMEDIES CALCULATOR */}
+      {/* 2. PRO ZODIAC REMEDIES CALCULATOR */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-r from-slate-900 via-slate-900 to-amber-950 text-white rounded-3xl p-8 lg:p-12 border border-amber-900/40 shadow-2xl">
+        <div className="bg-gradient-to-r from-slate-900 via-slate-950 to-amber-950 text-white rounded-3xl p-6 sm:p-10 border border-amber-500/30 shadow-2xl">
           
           <SectionHeader
             badge="Interactive Astrological Tool"
@@ -202,26 +281,26 @@ export const HomePage: React.FC<Props> = ({
             subtitle="Select your Zodiac Sign (Rashi) to discover your ruling planet and prescribed Vedic remedies."
           />
 
-          {/* Zodiac Buttons */}
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2.5 my-8">
+          {/* Zodiac Buttons - Mobile Touch Friendly Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3 my-6">
             {zodiacData.map((zodiac) => (
               <button
                 key={zodiac.id}
                 onClick={() => setSelectedZodiacId(zodiac.id)}
-                className={`p-3 rounded-2xl text-center border transition-all ${
+                className={`p-3.5 rounded-2xl text-center border transition-all ${
                   selectedZodiacId === zodiac.id
-                    ? 'bg-gradient-to-b from-amber-500 to-amber-600 text-slate-950 border-amber-400 font-extrabold shadow-lg scale-105'
-                    : 'bg-slate-800/80 border-slate-700 text-slate-300 hover:bg-slate-800 hover:border-slate-600'
+                    ? 'bg-gradient-to-b from-amber-500 to-amber-600 text-slate-950 border-amber-400 font-extrabold shadow-xl scale-105'
+                    : 'bg-slate-900/90 border-slate-800 text-slate-300 hover:bg-slate-800'
                 }`}
               >
-                <div className="text-xs font-bold">{zodiac.name}</div>
+                <div className="text-sm font-bold">{zodiac.name}</div>
                 <div className="text-[10px] opacity-80 mt-0.5">{zodiac.sanskritName.split(' ')[0]}</div>
               </button>
             ))}
           </div>
 
           {/* Selected Result Card */}
-          <div className="bg-slate-950/80 rounded-2xl p-6 border border-amber-900/50 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+          <div className="bg-slate-950/90 rounded-2xl p-6 border border-amber-500/40 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
             <div>
               <span className="text-xs font-bold text-amber-400 uppercase tracking-wider block">
                 Zodiac Profile: {selectedZodiac.sanskritName}
@@ -258,7 +337,7 @@ export const HomePage: React.FC<Props> = ({
               </p>
               <button
                 onClick={openConsultationModal}
-                className="w-full py-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs rounded-lg shadow"
+                className="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs rounded-xl shadow"
               >
                 Confirm Recommendation with Dr. Preity
               </button>
@@ -287,7 +366,7 @@ export const HomePage: React.FC<Props> = ({
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                   activeCategoryFilter === cat
                     ? 'bg-amber-600 text-white shadow-md'
-                    : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
+                    : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800'
                 }`}
               >
                 {cat}
@@ -311,10 +390,10 @@ export const HomePage: React.FC<Props> = ({
 
       {/* 4. ABOUT DR. PREITY SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-3xl p-8 lg:p-12 border border-slate-200 shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="bg-slate-900 rounded-3xl p-8 lg:p-12 border border-slate-800 shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
           <div className="lg:col-span-5 relative">
-            <div className="rounded-2xl overflow-hidden shadow-lg border border-slate-100 aspect-[4/5] bg-slate-100">
+            <div className="rounded-2xl overflow-hidden shadow-lg border border-slate-800 aspect-[4/5] bg-slate-950">
               <img
                 src={doctorProfile.photoUrl}
                 alt="Dr. Preity"
@@ -337,19 +416,19 @@ export const HomePage: React.FC<Props> = ({
               subtitle="Guiding thousands toward clarity, prosperity, and peace of mind through authentic Vedic remedies."
             />
 
-            <p className="text-slate-600 text-sm leading-relaxed">
+            <p className="text-slate-300 text-sm leading-relaxed">
               {doctorProfile.bio}
             </p>
 
-            <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5 space-y-3">
+            <div className="bg-slate-950 border border-amber-900/40 rounded-2xl p-5 space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
-                  <Award className="w-4 h-4 text-amber-600" />
+                <span className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                  <Award className="w-4 h-4 text-amber-400" />
                   <span>Verified Credentials Placeholder</span>
                 </span>
                 <PlaceholderBadge text="Client Placeholder Data" />
               </div>
-              <ul className="space-y-1.5 text-xs text-amber-900 font-mono">
+              <ul className="space-y-1.5 text-xs text-slate-300 font-mono">
                 <li>• Education: {doctorProfile.educationPlaceholder}</li>
                 <li>• Certifications: {doctorProfile.qualificationsPlaceholder}</li>
                 <li>• Experience: {doctorProfile.experiencePlaceholder}</li>
@@ -383,32 +462,32 @@ export const HomePage: React.FC<Props> = ({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 space-y-3">
+            <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-3">
               <div className="text-amber-400 flex gap-1 text-xs">★★★★★</div>
               <p className="text-slate-300 text-xs italic">
                 "[Add Verified Client Review #1 regarding Dr. Preity Kundli guidance and 7 Mukhi Rudraksha impact here]"
               </p>
-              <div className="text-xs font-bold text-white pt-2 border-t border-slate-700">
+              <div className="text-xs font-bold text-white pt-2 border-t border-slate-800">
                 - Client Placeholder #1 (Phoenix, AZ)
               </div>
             </div>
 
-            <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 space-y-3">
+            <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-3">
               <div className="text-amber-400 flex gap-1 text-xs">★★★★★</div>
               <p className="text-slate-300 text-xs italic">
                 "[Add Verified Client Review #2 regarding Ceylon Pukhraj authenticity and business growth here]"
               </p>
-              <div className="text-xs font-bold text-white pt-2 border-t border-slate-700">
+              <div className="text-xs font-bold text-white pt-2 border-t border-slate-800">
                 - Client Placeholder #2 (Tucson, AZ)
               </div>
             </div>
 
-            <div className="bg-slate-800 p-6 rounded-2xl border border-slate-700 space-y-3">
+            <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-3">
               <div className="text-amber-400 flex gap-1 text-xs">★★★★★</div>
               <p className="text-slate-300 text-xs italic">
                 "[Add Verified Client Review #3 regarding Pyrite bracelet & Vastu remedies for house here]"
               </p>
-              <div className="text-xs font-bold text-white pt-2 border-t border-slate-700">
+              <div className="text-xs font-bold text-white pt-2 border-t border-slate-800">
                 - Client Placeholder #3 (Scottsdale, AZ)
               </div>
             </div>
@@ -431,17 +510,17 @@ export const HomePage: React.FC<Props> = ({
             return (
               <div
                 key={index}
-                className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm transition-all"
+                className="bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden shadow-sm transition-all"
               >
                 <button
                   onClick={() => setOpenFaqIndex(isOpen ? null : index)}
-                  className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-slate-900 hover:text-amber-600 transition-colors focus:outline-none"
+                  className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-white hover:text-amber-400 transition-colors focus:outline-none"
                 >
                   <span className="text-sm">{faq.question}</span>
-                  {isOpen ? <ChevronUp className="w-5 h-5 text-amber-600" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
+                  {isOpen ? <ChevronUp className="w-5 h-5 text-amber-400" /> : <ChevronDown className="w-5 h-5 text-slate-500" />}
                 </button>
                 {isOpen && (
-                  <div className="px-5 pb-5 text-slate-600 text-xs leading-relaxed border-t border-slate-100 pt-3">
+                  <div className="px-5 pb-5 text-slate-300 text-xs leading-relaxed border-t border-slate-800 pt-3">
                     {faq.answer}
                   </div>
                 )}

@@ -1,4 +1,6 @@
 import type { ProductItem } from '../types';
+import siddhaMalaImg from '../assets/siddha_mala.jpg';
+import pukhrajImg from '../assets/pukhraj.jpg';
 
 export const productsData: ProductItem[] = [
   {
@@ -9,7 +11,7 @@ export const productsData: ProductItem[] = [
     originalPrice: 650,
     rating: 5.0,
     reviewsCount: 142,
-    image: 'https://images.unsplash.com/photo-1611591475140-4988e705b634?auto=format&fit=crop&q=80&w=800',
+    image: siddhaMalaImg,
     badge: 'RARE & SACRED',
     isAbhimantrit: true,
     isLabCertified: true,
@@ -23,6 +25,28 @@ export const productsData: ProductItem[] = [
     ],
     suitableForZodiac: ['All Zodiac Signs'],
     options: ['Silver Capping', 'Pure Gold Capping', 'Thread Mala']
+  },
+  {
+    id: 'yellow-sapphire-pukhraj',
+    name: 'Natural Ceylon Yellow Sapphire (Pukhraj)',
+    category: 'Gemstone',
+    price: 299,
+    originalPrice: 420,
+    rating: 5.0,
+    reviewsCount: 178,
+    image: pukhrajImg,
+    badge: 'NAV RATNA',
+    isAbhimantrit: true,
+    isLabCertified: true,
+    shortDescription: 'Untreated 100% Natural Ceylon Pukhraj for wisdom, marital harmony, and prosperity.',
+    fullDescription: 'Ruled by Jupiter (Brihaspati). Enhances intellect, executive decision making, spiritual wisdom, and marital bliss.',
+    benefits: [
+      'Brings rapid career promotion & business expansion',
+      'Improves decision making and academic achievement',
+      'Government Lab Certified gemstone'
+    ],
+    suitableForZodiac: ['Sagittarius', 'Pisces', 'Aries', 'Scorpio'],
+    options: ['4.25 Carat', '5.5 Carat', '6.25 Carat']
   },
   {
     id: '5-mukhi-rudraksha-mala',
@@ -66,28 +90,6 @@ export const productsData: ProductItem[] = [
       'Lab Certified with unique authenticity code'
     ],
     suitableForZodiac: ['Capricorn', 'Aquarius', 'Taurus', 'Libra']
-  },
-  {
-    id: 'yellow-sapphire-pukhraj',
-    name: 'Natural Ceylon Yellow Sapphire (Pukhraj)',
-    category: 'Gemstone',
-    price: 299,
-    originalPrice: 420,
-    rating: 5.0,
-    reviewsCount: 178,
-    image: 'https://images.unsplash.com/photo-1615655406736-b37c4fabf923?auto=format&fit=crop&q=80&w=800',
-    badge: 'NAV RATNA',
-    isAbhimantrit: true,
-    isLabCertified: true,
-    shortDescription: 'Untreated 100% Natural Ceylon Pukhraj for wisdom, marital harmony, and prosperity.',
-    fullDescription: 'Ruled by Jupiter (Brihaspati). Enhances intellect, executive decision making, spiritual wisdom, and marital bliss.',
-    benefits: [
-      'Brings rapid career promotion & business expansion',
-      'Improves decision making and academic achievement',
-      'Government Lab Certified gemstone'
-    ],
-    suitableForZodiac: ['Sagittarius', 'Pisces', 'Aries', 'Scorpio'],
-    options: ['4.25 Carat', '5.5 Carat', '6.25 Carat']
   },
   {
     id: 'emerald-panna',
@@ -170,27 +172,6 @@ export const productsData: ProductItem[] = [
       'Removes stubborn Vastu defects without demolition',
       'Invites Mahalakshmi presence into house/office',
       'Energized in Haridwar Ghat rituals'
-    ]
-  },
-  {
-    id: 'dr-preity-kundli-consultation',
-    name: '1-on-1 Horoscope & Kundli Reading with Dr. Preity',
-    category: 'Consultation',
-    price: 150,
-    originalPrice: 200,
-    rating: 5.0,
-    reviewsCount: 620,
-    image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=800',
-    badge: 'MOST TRUSTED',
-    isAbhimantrit: false,
-    isLabCertified: false,
-    shortDescription: 'Personalized 45-minute video/phone consultation with Dr. Preity covering career, love, health & remedies.',
-    fullDescription: 'Get deep clarity on planetary dasha movements, marriage compatibility, business timing, and customized low-cost Vedic remedies.',
-    benefits: [
-      'Comprehensive birth chart analysis & life timeline',
-      'Specific gemstone & Rudraksha recommendations',
-      'Direct 1-on-1 Q&A session with Dr. Preity',
-      'Remedies report sent over email/WhatsApp'
     ]
   }
 ];

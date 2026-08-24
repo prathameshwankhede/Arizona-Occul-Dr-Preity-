@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import type { PageRoute, ProductItem, CartItem } from './types';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
+import { MobileBottomNav } from './components/MobileBottomNav';
 import { CartDrawer } from './components/CartDrawer';
 import { ProductQuickViewModal } from './components/ProductQuickViewModal';
 import { ConsultationModal } from './components/ConsultationModal';
@@ -108,7 +109,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800 antialiased selection:bg-amber-500 selection:text-slate-950">
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800 antialiased selection:bg-amber-500 selection:text-slate-950 pb-16 md:pb-0">
       
       {/* Sticky Header Navbar */}
       <Navbar
@@ -129,6 +130,15 @@ export function App() {
       {/* Footer */}
       <Footer
         setActivePage={setActivePage}
+        openConsultationModal={() => setIsConsultationOpen(true)}
+      />
+
+      {/* Mobile App Bottom Navigation Bar */}
+      <MobileBottomNav
+        activePage={activePage}
+        setActivePage={setActivePage}
+        cartCount={totalCartCount}
+        openCartDrawer={() => setIsCartOpen(true)}
         openConsultationModal={() => setIsConsultationOpen(true)}
       />
 

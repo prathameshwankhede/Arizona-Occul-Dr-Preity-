@@ -50,61 +50,61 @@ export const Navbar: React.FC<Props> = ({
 
   return (
     <>
-      {/* Top Announcement Bar */}
-      <div className="bg-slate-950 text-slate-300 text-xs py-2 px-4 border-b border-amber-900/40">
+      {/* Onaar Gracious Top Announcement Bar */}
+      <div className="emerald-header text-amber-100 text-xs py-2 px-4 border-b border-amber-500/20">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5 text-amber-400 font-semibold">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>USE CODE: COSMIC10 FOR EXTRA 10% OFF</span>
+            <span className="flex items-center gap-1.5 text-amber-300 font-bold">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <span>ONAR GRACIOUS SPECIAL: USE CODE COSMIC10 FOR 10% OFF</span>
             </span>
-            <span className="text-slate-700 hidden sm:inline">|</span>
-            <span className="text-slate-400 hidden sm:inline flex items-center gap-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
-              <span>100% Lab Certified & Abhimantrit Remedies</span>
+            <span className="text-emerald-700 hidden sm:inline">|</span>
+            <span className="text-slate-200 hidden sm:inline flex items-center gap-1">
+              <ShieldCheck className="w-3.5 h-3.5 text-cyan-300" />
+              <span>100% Authentic Lab Certified Remedies</span>
             </span>
           </div>
 
           <div className="flex items-center gap-4 text-[11px]">
-            <span className="text-slate-300 font-mono hidden md:inline">
+            <span className="text-emerald-200 font-mono hidden md:inline">
               Worldwide Insured Shipping
             </span>
             <a
               href="tel:8390125338"
-              className="text-amber-400 font-bold hover:underline flex items-center gap-1 font-mono"
+              className="text-amber-300 font-bold hover:underline flex items-center gap-1 font-mono"
             >
-              <Phone className="w-3 h-3" />
+              <Phone className="w-3 h-3 text-amber-400" />
               <span>8390125338</span>
             </a>
           </div>
         </div>
       </div>
 
-      {/* Main Sticky Header */}
+      {/* Onaar Gracious Main Sticky Header */}
       <header
         className={`sticky top-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? 'glass-header shadow-lg border-b border-amber-900/20 py-3'
-            : 'bg-slate-900 text-white border-b border-slate-800 py-4'
+            ? 'bg-white/95 backdrop-blur-md shadow-md border-b border-amber-900/10 py-3'
+            : 'bg-[#faf8f5] border-b border-amber-900/10 py-4'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
           
-          {/* Brand Logo */}
+          {/* Onaar Gracious Brand Logo */}
           <button
             onClick={() => handleNavClick('home')}
             className="flex items-center gap-3 group focus:outline-none"
             aria-label="Arizona Occult Home"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-600 via-amber-500 to-yellow-400 flex items-center justify-center text-slate-950 shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform">
+            <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-[#0f382c] to-[#165b46] flex items-center justify-center text-amber-400 shadow-md border border-amber-500/30 group-hover:scale-105 transition-transform">
               <Sun className="w-6 h-6 stroke-[2.2]" />
             </div>
             <div className="text-left">
-              <span className={`text-xl font-extrabold tracking-tight block leading-none ${isScrolled ? 'text-white' : 'text-white'}`}>
-                Arizona <span className="text-amber-500">Occult</span>
+              <span className="text-xl font-black tracking-tight block leading-none text-[#0f382c]">
+                ARIZONA <span className="text-amber-600">OCCULT</span>
               </span>
-              <span className="text-[10px] tracking-widest uppercase font-semibold block mt-0.5 text-slate-400">
-                Dr. Preity • Awaken • Align • Attract
+              <span className="text-[10px] tracking-widest uppercase font-bold block mt-1 text-slate-500">
+                Dr. Preity • Onaar Gracious Remedies
               </span>
             </div>
           </button>
@@ -116,8 +116,8 @@ export const Navbar: React.FC<Props> = ({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search Abundance, Sundari, Sulemani..."
-              className="w-full pl-9 pr-3 py-1.5 rounded-xl border text-xs focus:outline-none focus:ring-2 focus:ring-amber-500 bg-slate-800 border-slate-700 text-white placeholder-slate-400"
+              placeholder="Search Abundance, Pukhraj, Rudraksha..."
+              className="w-full pl-9 pr-3 py-1.5 rounded-xl border text-xs focus:outline-none focus:ring-2 focus:ring-amber-500 bg-white border-[#e5decf] text-slate-800 placeholder-slate-400"
             />
           </div>
 
@@ -129,10 +129,10 @@ export const Navbar: React.FC<Props> = ({
                 <button
                   key={link.page}
                   onClick={() => handleNavClick(link.page)}
-                  className={`px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
+                  className={`px-3.5 py-2 rounded-lg text-xs font-bold transition-colors ${
                     isActive
-                      ? 'bg-amber-500/20 text-amber-500 font-bold'
-                      : 'text-slate-300 hover:text-amber-400 hover:bg-slate-800'
+                      ? 'bg-[#0f382c] text-white'
+                      : 'text-slate-700 hover:text-[#0f382c] hover:bg-slate-100'
                   }`}
                 >
                   {link.label}
@@ -147,12 +147,12 @@ export const Navbar: React.FC<Props> = ({
             {/* Cart Trigger */}
             <button
               onClick={openCartDrawer}
-              className="relative p-2.5 rounded-xl transition-colors bg-slate-800 text-white hover:bg-slate-700"
+              className="relative p-2.5 rounded-xl transition-colors bg-white border border-[#e5decf] text-slate-800 hover:bg-slate-50 shadow-sm"
               aria-label="Open Shopping Bag"
             >
-              <ShoppingBag className="w-5 h-5 text-amber-500" />
+              <ShoppingBag className="w-5 h-5 text-[#0f382c]" />
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-amber-600 text-white font-mono text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center border-2 border-slate-900 shadow">
+                <span className="absolute -top-1 -right-1 bg-amber-600 text-white font-mono text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white shadow">
                   {cartCount}
                 </span>
               )}
@@ -161,16 +161,16 @@ export const Navbar: React.FC<Props> = ({
             {/* Book Consultation CTA */}
             <button
               onClick={openConsultationModal}
-              className="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white px-4 py-2.5 rounded-xl font-bold text-xs shadow-md shadow-amber-600/20 hover:shadow-lg transition-transform transform hover:-translate-y-0.5"
+              className="hidden sm:inline-flex items-center gap-2 emerald-shimmer-btn text-white px-4 py-2.5 rounded-xl font-bold text-xs shadow-md hover:shadow-lg transition-transform transform hover:-translate-y-0.5"
             >
-              <Calendar className="w-4 h-4" />
+              <Calendar className="w-4 h-4 text-amber-400" />
               <span>Consult Dr. Preity</span>
             </button>
 
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-xl xl:hidden text-white hover:bg-slate-800"
+              className="p-2 rounded-xl xl:hidden text-slate-800 hover:bg-slate-100"
               aria-label="Toggle Mobile Navigation"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -183,19 +183,19 @@ export const Navbar: React.FC<Props> = ({
 
       {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 xl:hidden flex flex-col bg-slate-950/80 backdrop-blur-md">
-          <div className="bg-slate-900 text-white w-full max-h-[90vh] overflow-y-auto shadow-2xl border-b border-slate-800 p-6 animate-fade-in">
+        <div className="fixed inset-0 z-50 xl:hidden flex flex-col bg-slate-900/60 backdrop-blur-md">
+          <div className="bg-white text-slate-900 w-full max-h-[90vh] overflow-y-auto shadow-2xl border-b border-slate-200 p-6 animate-fade-in">
             
-            <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-amber-500 text-slate-950 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-[#0f382c] text-amber-400 flex items-center justify-center">
                   <Sun className="w-5 h-5" />
                 </div>
-                <span className="font-bold text-white text-lg">Arizona Occult</span>
+                <span className="font-extrabold text-[#0f382c] text-lg">Arizona Occult</span>
               </div>
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="p-2 text-slate-400 hover:text-white"
+                className="p-2 text-slate-400 hover:text-slate-800"
               >
                 <X className="w-6 h-6" />
               </button>
@@ -206,10 +206,10 @@ export const Navbar: React.FC<Props> = ({
                 <button
                   key={link.page}
                   onClick={() => handleNavClick(link.page)}
-                  className={`text-left px-4 py-3 rounded-xl font-semibold text-sm transition-colors ${
+                  className={`text-left px-4 py-3 rounded-xl font-bold text-sm transition-colors ${
                     activePage === link.page
-                      ? 'bg-amber-500/20 text-amber-400 font-bold'
-                      : 'text-slate-300 hover:bg-slate-800'
+                      ? 'bg-[#0f382c] text-white font-bold'
+                      : 'text-slate-700 hover:bg-slate-100'
                   }`}
                 >
                   {link.label}
@@ -217,7 +217,7 @@ export const Navbar: React.FC<Props> = ({
               ))}
             </nav>
 
-            <div className="mt-6 pt-6 border-t border-slate-800 flex flex-col gap-3">
+            <div className="mt-6 pt-6 border-t border-slate-100 flex flex-col gap-3">
               <a
                 href="https://wa.me/918390125338"
                 target="_blank"
@@ -233,9 +233,9 @@ export const Navbar: React.FC<Props> = ({
                   setMobileMenuOpen(false);
                   openConsultationModal();
                 }}
-                className="w-full py-3 bg-gradient-to-r from-amber-600 to-amber-700 text-white font-bold rounded-xl text-center shadow-md flex items-center justify-center gap-2 text-xs"
+                className="w-full py-3 bg-[#0f382c] text-white font-bold rounded-xl text-center shadow-md flex items-center justify-center gap-2 text-xs"
               >
-                <Calendar className="w-4 h-4" />
+                <Calendar className="w-4 h-4 text-amber-400" />
                 <span>Book Session with Dr. Preity</span>
               </button>
             </div>

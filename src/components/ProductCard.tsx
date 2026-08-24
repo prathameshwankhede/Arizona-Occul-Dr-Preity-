@@ -10,10 +10,10 @@ interface Props {
 
 export const ProductCard: React.FC<Props> = ({ product, onQuickView, onAddToCart }) => {
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1">
+    <div className="onaar-card rounded-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden group hover:-translate-y-1">
       
       {/* Image Container */}
-      <div className="relative aspect-square overflow-hidden bg-slate-900">
+      <div className="relative aspect-square overflow-hidden bg-slate-50">
         <img
           src={product.image}
           alt={product.name}
@@ -22,27 +22,27 @@ export const ProductCard: React.FC<Props> = ({ product, onQuickView, onAddToCart
 
         {/* Badge Overlay */}
         {product.badge && (
-          <div className="absolute top-3 left-3 bg-gradient-to-r from-amber-600 to-amber-700 text-white font-mono text-[10px] font-extrabold px-2.5 py-1 rounded-md uppercase tracking-wider shadow">
+          <div className="absolute top-3 left-3 gold-badge font-mono text-[10px] font-extrabold px-3 py-1 rounded-md uppercase tracking-wider shadow">
             {product.badge}
           </div>
         )}
 
         {/* Lab Certification Indicator */}
         {product.isLabCertified && (
-          <div className="absolute bottom-3 left-3 bg-slate-900/90 backdrop-blur-sm text-cyan-300 text-[10px] font-semibold px-2 py-0.5 rounded-md flex items-center gap-1 border border-cyan-500/30">
-            <ShieldCheck className="w-3 h-3 text-cyan-400" />
-            <span>Lab Certified</span>
+          <div className="absolute bottom-3 left-3 bg-[#0f382c]/90 text-amber-300 text-[10px] font-bold px-2.5 py-1 rounded-md flex items-center gap-1 shadow">
+            <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+            <span>100% Lab Certified</span>
           </div>
         )}
 
         {/* Quick View Button on Hover */}
         <button
           onClick={() => onQuickView(product)}
-          className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-bold text-xs gap-2"
+          className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-bold text-xs gap-2"
         >
-          <div className="bg-white/90 text-slate-900 px-4 py-2 rounded-xl flex items-center gap-1.5 shadow-lg">
+          <div className="bg-white text-[#0f382c] px-4 py-2 rounded-xl flex items-center gap-1.5 shadow-xl font-bold">
             <Eye className="w-4 h-4 text-amber-600" />
-            <span>Quick View</span>
+            <span>Quick View / Poster</span>
           </div>
         </button>
       </div>
@@ -52,7 +52,7 @@ export const ProductCard: React.FC<Props> = ({ product, onQuickView, onAddToCart
         <div>
           <div className="flex items-center justify-between text-xs text-slate-500 mb-1">
             <span className="font-bold text-amber-700 uppercase tracking-wider">
-              {product.category}
+              {product.category} Remedy
             </span>
             <div className="flex items-center gap-1 text-amber-500 font-bold">
               <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
@@ -61,7 +61,7 @@ export const ProductCard: React.FC<Props> = ({ product, onQuickView, onAddToCart
             </div>
           </div>
 
-          <h3 className="text-base font-bold text-slate-900 group-hover:text-amber-600 transition-colors line-clamp-1">
+          <h3 className="text-base font-extrabold text-slate-900 group-hover:text-amber-700 transition-colors line-clamp-1">
             {product.name}
           </h3>
 
@@ -73,7 +73,7 @@ export const ProductCard: React.FC<Props> = ({ product, onQuickView, onAddToCart
         {/* Pricing & Add to Cart */}
         <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
           <div>
-            <div className="text-lg font-extrabold text-slate-900">
+            <div className="text-lg font-black text-[#0f382c]">
               ${product.price}
             </div>
             {product.originalPrice && (
@@ -85,10 +85,10 @@ export const ProductCard: React.FC<Props> = ({ product, onQuickView, onAddToCart
 
           <button
             onClick={() => onAddToCart(product)}
-            className="px-4 py-2 bg-gradient-to-r from-slate-900 to-slate-800 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-xs rounded-xl shadow transition-all flex items-center gap-1.5"
+            className="px-4 py-2.5 bg-[#0f382c] hover:bg-[#165b46] text-white font-extrabold text-xs rounded-xl shadow transition-all flex items-center gap-1.5"
           >
-            <ShoppingBag className="w-3.5 h-3.5" />
-            <span>Add to Cart</span>
+            <ShoppingBag className="w-3.5 h-3.5 text-amber-400" />
+            <span>Add to Bag</span>
           </button>
         </div>
 

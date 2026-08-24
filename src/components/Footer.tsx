@@ -1,7 +1,6 @@
 import React from 'react';
 import { Sun, MapPin, Phone, Mail, ArrowRight, ShieldCheck, Award, Sparkles, CheckCircle2 } from 'lucide-react';
 import type { PageRoute } from '../types';
-import { PlaceholderBadge } from './PlaceholderBadge';
 
 interface Props {
   setActivePage: (page: PageRoute) => void;
@@ -24,8 +23,8 @@ export const Footer: React.FC<Props> = ({ setActivePage, openConsultationModal }
           <div className="flex items-start gap-3 bg-slate-900/60 p-4 rounded-2xl border border-slate-800">
             <ShieldCheck className="w-8 h-8 text-amber-500 flex-shrink-0 mt-1" />
             <div>
-              <h4 className="text-white font-bold text-xs uppercase tracking-wider">100% X-Ray Lab Certified</h4>
-              <p className="text-slate-400 text-[11px] mt-0.5">Tested for authenticity & non-treated origin.</p>
+              <h4 className="text-white font-bold text-xs uppercase tracking-wider">100% Authentic Crystals</h4>
+              <p className="text-slate-400 text-[11px] mt-0.5">Energy-activated & lab-certified gemstones.</p>
             </div>
           </div>
 
@@ -33,7 +32,7 @@ export const Footer: React.FC<Props> = ({ setActivePage, openConsultationModal }
             <Sparkles className="w-8 h-8 text-amber-500 flex-shrink-0 mt-1" />
             <div>
               <h4 className="text-white font-bold text-xs uppercase tracking-wider">Vedic Abhimantrit Rituals</h4>
-              <p className="text-slate-400 text-[11px] mt-0.5">Consecrated with Pran Pratishtha by Dr. Preity.</p>
+              <p className="text-slate-400 text-[11px] mt-0.5">Consecrated for your specific birth chart.</p>
             </div>
           </div>
 
@@ -41,7 +40,7 @@ export const Footer: React.FC<Props> = ({ setActivePage, openConsultationModal }
             <Award className="w-8 h-8 text-amber-500 flex-shrink-0 mt-1" />
             <div>
               <h4 className="text-white font-bold text-xs uppercase tracking-wider">Dr. Preity Guidance</h4>
-              <p className="text-slate-400 text-[11px] mt-0.5">Renowned Astrologer & Occult Specialist.</p>
+              <p className="text-slate-400 text-[11px] mt-0.5">Awaken • Align • Attract.</p>
             </div>
           </div>
 
@@ -49,7 +48,7 @@ export const Footer: React.FC<Props> = ({ setActivePage, openConsultationModal }
             <CheckCircle2 className="w-8 h-8 text-amber-500 flex-shrink-0 mt-1" />
             <div>
               <h4 className="text-white font-bold text-xs uppercase tracking-wider">Worldwide Shipping</h4>
-              <p className="text-slate-400 text-[11px] mt-0.5">Insured delivery to USA, Canada, UK & global.</p>
+              <p className="text-slate-400 text-[11px] mt-0.5">Insured delivery with lab certificates.</p>
             </div>
           </div>
 
@@ -72,13 +71,13 @@ export const Footer: React.FC<Props> = ({ setActivePage, openConsultationModal }
                   Arizona <span className="text-amber-500">Occult</span>
                 </span>
                 <span className="text-[10px] tracking-widest text-slate-400 uppercase block font-semibold">
-                  Dr. Preity Astrological Remedies
+                  Dr. Preity • Awaken • Align • Attract
                 </span>
               </div>
             </div>
             
             <p className="text-slate-400 text-xs leading-relaxed max-w-sm">
-              Your premier center for authentic Rudrakshas, 100% Lab Certified Navratna Gemstones, Healing Crystals, and direct 1-on-1 Horoscope Consultations with Dr. Preity in Arizona.
+              Your premier center for authentic Rudrakshas, 100% Lab Certified Navratna Gemstones, Healing Crystal Bracelets, and direct 1-on-1 Horoscope Consultations with Dr. Preity.
             </p>
 
             <div className="pt-2">
@@ -137,49 +136,43 @@ export const Footer: React.FC<Props> = ({ setActivePage, openConsultationModal }
               Sacred Remedies
             </h3>
             <ul className="space-y-2 text-xs text-slate-400">
+              <li>Abundance Bracelet (Wealth & Luck)</li>
+              <li>Sundari Beauty Combo Bracelet</li>
+              <li>Sulemani Hakik Protection Bracelet</li>
+              <li>Focus & Clarity Bracelet</li>
               <li>1–14 Mukhi Siddha Mala</li>
               <li>Ceylon Yellow Sapphire (Pukhraj)</li>
-              <li>Zambian Emerald (Panna)</li>
-              <li>Pyrite Money Magnet Bracelet</li>
-              <li>Amethyst Stress Relief Crystal</li>
-              <li>3D Panchdhatu Shree Yantra</li>
             </ul>
           </div>
 
-          {/* Practice Location */}
+          {/* Contact Information */}
           <div>
             <h3 className="text-white font-bold text-xs uppercase tracking-wider mb-4 border-l-2 border-amber-500 pl-2.5">
-              Arizona Practice
+              Direct Contact
             </h3>
             <div className="space-y-3 text-xs text-slate-400">
-              <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
-                <div>
-                  <span className="text-white font-bold block">Arizona Occult Office</span>
-                  <span className="text-[11px] text-amber-400 font-mono">[Add Arizona Address]</span>
-                </div>
-              </div>
-
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-amber-500 flex-shrink-0" />
-                <span className="text-slate-300 font-mono">[Add Phone Number]</span>
+                <a href="tel:8390125338" className="text-white font-mono font-bold hover:text-amber-400">
+                  8390125338
+                </a>
               </div>
 
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-amber-500 flex-shrink-0" />
-                <span className="text-slate-300">[Add Email Address]</span>
+                <span className="text-slate-300">arizonaoccult@gmail.com</span>
+              </div>
+
+              <div className="flex items-start gap-2.5">
+                <MapPin className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
+                <div>
+                  <span className="text-white font-bold block">Arizona Occult Office</span>
+                  <span className="text-[11px] text-slate-400">Consultation & Worldwide Remedies</span>
+                </div>
               </div>
             </div>
           </div>
 
-        </div>
-
-        {/* Spiritual Disclaimer */}
-        <div className="py-6 border-b border-slate-900 text-[11px] text-slate-500 leading-relaxed flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <p className="max-w-3xl">
-            <strong className="text-slate-400">Disclaimer:</strong> Astrological consultations, Rudraksha, and Gemstones are offered for spiritual guidance and faith-based remedies. Results vary by individual karma and dasha cycles.
-          </p>
-          <PlaceholderBadge text="Client Placeholder Contact Data" />
         </div>
 
         {/* Bottom Bar */}

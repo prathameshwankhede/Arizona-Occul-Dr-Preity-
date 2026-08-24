@@ -1,8 +1,258 @@
 import type { ProductItem } from '../types';
+
+import abundanceImg from '../assets/products/abundance.jpg';
+import tourmalineImg from '../assets/products/tourmaline.jpg';
+import lapisFocusImg from '../assets/products/lapis_focus.jpg';
+import hematiteImg from '../assets/products/hematite.jpg';
+import sundariBeautyImg from '../assets/products/sundari_beauty.jpg';
+import sulemaniHakikImg from '../assets/products/sulemani_hakik.jpg';
+import amethystQuartzImg from '../assets/products/amethyst_quartz.jpg';
+import mookaiteImg from '../assets/products/mookaite.jpg';
+import redJasperImg from '../assets/products/red_jasper.jpg';
+import carnelianImg from '../assets/products/carnelian.jpg';
+import howliteImg from '../assets/products/howlite.jpg';
+
 import siddhaMalaImg from '../assets/siddha_mala.jpg';
 import pukhrajImg from '../assets/pukhraj.jpg';
 
 export const productsData: ProductItem[] = [
+  {
+    id: 'abundance-bracelet',
+    name: 'Abundance Bracelet (Attract Wealth & Prosperity)',
+    category: 'Crystal',
+    price: 49,
+    originalPrice: 79,
+    rating: 5.0,
+    reviewsCount: 342,
+    image: abundanceImg,
+    badge: 'FLAGSHIP REMEDY',
+    isAbhimantrit: true,
+    isLabCertified: true,
+    shortDescription: 'Powered by Citrine, Amazonite, Green Aventurine & Sulemani Hakeek for wealth, luck & evil eye protection.',
+    fullDescription: 'Attract abundance, invite prosperity, and live a life of wealth, luck, and spiritual protection. Handcrafted with authentic natural crystals and energized by Dr. Preity.',
+    benefits: [
+      'Citrine: Attracts wealth, success and positive energy',
+      'Amazonite: Enhances opportunity & financial growth',
+      'Green Aventurine: Brings prosperity and good fortune',
+      'Sulemani Hakeek: Powerful protection from negativity & evil eye'
+    ],
+    suitableForZodiac: ['Taurus', 'Leo', 'Virgo', 'Sagittarius', 'Capricorn'],
+    options: ['8mm Standard Bead', '10mm Heavy Bead']
+  },
+  {
+    id: 'sundari-beauty-combo',
+    name: 'Sundari Beauty Combo Bracelet (Self-Love & Attraction)',
+    category: 'Crystal',
+    price: 45,
+    originalPrice: 70,
+    rating: 5.0,
+    reviewsCount: 289,
+    image: sundariBeautyImg,
+    badge: 'BEAUTY & LOVE',
+    isAbhimantrit: true,
+    isLabCertified: true,
+    shortDescription: 'Combines Moonstone, Carnelian & Rose Quartz to unlock natural glow, self-love, and charming aura.',
+    fullDescription: 'Brings out your inner and outer beauty with emotional balance, magnetic attraction, and self-acceptance.',
+    benefits: [
+      'Moonstone: Enhances natural glow & inner radiance',
+      'Carnelian: Boosts charm, confidence & magnetic energy',
+      'Rose Quartz: Opens heart to love, healing & self-acceptance',
+      'Promotes inner peace, emotional balance & harmony'
+    ],
+    suitableForZodiac: ['Cancer', 'Libra', 'Taurus', 'Scorpio'],
+    options: ['8mm Standard Bead', '10mm Heavy Bead']
+  },
+  {
+    id: 'clarity-protection-tourmaline',
+    name: 'Clarity & Protection Bracelet (Clear Quartz & Black Tourmaline)',
+    category: 'Crystal',
+    price: 42,
+    originalPrice: 65,
+    rating: 4.9,
+    reviewsCount: 215,
+    image: tourmalineImg,
+    badge: 'PROTECTION SHIELD',
+    isAbhimantrit: true,
+    isLabCertified: true,
+    shortDescription: 'Blends Clear Quartz positivity amplification with Black Tourmaline grounding protection.',
+    fullDescription: 'Pure energy, powerful protection, positive you. Absorbs negative vibrations, shields from psychic attacks, and enhances mental clarity.',
+    benefits: [
+      'Amplifies positive energy & enhances mental clarity',
+      'Strong protection against negative energies',
+      'Supports meditation, spiritual growth & grounding'
+    ],
+    suitableForZodiac: ['Scorpio', 'Capricorn', 'Aquarius', 'Virgo']
+  },
+  {
+    id: 'focus-clarity-lapis',
+    name: 'Focus & Clarity Bracelet (Lapis Lazuli + Amethyst + Quartz)',
+    category: 'Crystal',
+    price: 49,
+    originalPrice: 75,
+    rating: 5.0,
+    reviewsCount: 198,
+    image: lapisFocusImg,
+    badge: '3RD EYE ACTIVATION',
+    isAbhimantrit: true,
+    isLabCertified: true,
+    shortDescription: 'Awaken higher consciousness and divine energy with Lapis Lazuli, Amethyst, and Clear Quartz.',
+    fullDescription: 'Linked with Third Eye & Crown Chakras. Offers protection against psychic attacks, calms anxiety, and brings crystal clear communication.',
+    benefits: [
+      'Lapis Lazuli: Protection & Third Eye alignment',
+      'Amethyst: Relieves stress, balances mental energy',
+      'Clear Quartz: Master Healer for mind & focus'
+    ],
+    suitableForZodiac: ['Sagittarius', 'Aquarius', 'Pisces', 'Gemini']
+  },
+  {
+    id: 'sulemani-hakik-bracelet',
+    name: 'Sulemani Hakik Bracelet (Shani & Rahu Shield)',
+    category: 'Crystal',
+    price: 39,
+    originalPrice: 60,
+    rating: 4.9,
+    reviewsCount: 310,
+    image: sulemaniHakikImg,
+    badge: 'SHANI & RAHU PROTECTION',
+    isAbhimantrit: true,
+    isLabCertified: true,
+    shortDescription: 'Powerful protection, grounding & stability. Reduces Rahu-Ketu dosha and Shani effects.',
+    fullDescription: 'Shields against evil eye, black magic, and psychic attacks while restoring emotional balance and reducing overthinking.',
+    benefits: [
+      'Protects from evil eye & negative energies',
+      'Strong connection with Shani (Saturn)',
+      'Helps reduce Rahu-Ketu malefic effects',
+      'Reduces fear, anxiety & overthinking'
+    ],
+    suitableForZodiac: ['Capricorn', 'Aquarius', 'Scorpio', 'Aries']
+  },
+  {
+    id: 'amethyst-clear-quartz',
+    name: 'Amethyst & Clear Quartz Bracelet (Calm Mind & Healing)',
+    category: 'Crystal',
+    price: 42,
+    originalPrice: 65,
+    rating: 4.9,
+    reviewsCount: 276,
+    image: amethystQuartzImg,
+    badge: 'STRESS RELIEF',
+    isAbhimantrit: true,
+    isLabCertified: true,
+    shortDescription: 'Calm your mind, amplify your energy, and heal from within. Wear daily on left wrist.',
+    fullDescription: 'A divine combination of clarity and calmness. Relieves stress, overthinking, and promotes deep meditation.',
+    benefits: [
+      'Promotes mental peace & emotional balance',
+      'Enhances focus, clarity & decision-making',
+      'Supports sleep, relaxation & spiritual growth'
+    ],
+    suitableForZodiac: ['Pisces', 'Aquarius', 'Virgo', 'Sagittarius']
+  },
+  {
+    id: 'carnelian-power-bracelet',
+    name: 'Carnelian Crystal Bracelet (Energy, Confidence & Action)',
+    category: 'Crystal',
+    price: 39,
+    originalPrice: 60,
+    rating: 4.9,
+    reviewsCount: 184,
+    image: carnelianImg,
+    badge: 'CONFIDENCE & DRIVE',
+    isAbhimantrit: true,
+    isLabCertified: true,
+    shortDescription: 'Sacral Chakra crystal known to stimulate drive, execution power, and opportunity attraction.',
+    fullDescription: 'Ideal for individuals feeling stuck or unable to take action. Boosts physical stamina, courage, and productivity.',
+    benefits: [
+      'Works on Sacral Chakra (Swadhisthana)',
+      'Improves confidence & decision-making ability',
+      'Reduces fear, hesitation & overthinking',
+      'Promotes action-oriented mindset'
+    ],
+    suitableForZodiac: ['Aries', 'Leo', 'Scorpio', 'Taurus']
+  },
+  {
+    id: 'howlite-crystal-bracelet',
+    name: 'Howlite Crystal Bracelet (Calmness & Insomnia Relief)',
+    category: 'Crystal',
+    price: 38,
+    originalPrice: 58,
+    rating: 4.8,
+    reviewsCount: 162,
+    image: howliteImg,
+    badge: 'STONE OF CALMNESS',
+    isAbhimantrit: true,
+    isLabCertified: true,
+    shortDescription: 'Soothing crystal designed to control overthinking, anger, and improve deep restful sleep.',
+    fullDescription: 'Calm your thoughts, balance your life. Howlite relaxes mind and body, promoting mindfulness and anger control.',
+    benefits: [
+      'Reduces stress, anxiety & anger',
+      'Helps in better sleep & insomnia relief',
+      'Controls overthinking & emotional imbalance'
+    ],
+    suitableForZodiac: ['Gemini', 'Virgo', 'Cancer', 'Libra']
+  },
+  {
+    id: 'mookaite-power-bracelet',
+    name: 'Mookaite Power Bracelet (Strength & New Beginnings)',
+    category: 'Crystal',
+    price: 45,
+    originalPrice: 70,
+    rating: 4.9,
+    reviewsCount: 145,
+    image: mookaiteImg,
+    badge: 'NEW BEGINNINGS',
+    isAbhimantrit: true,
+    isLabCertified: true,
+    shortDescription: 'The stone of strength, stability, and new beginnings. Helps take right decisions with confidence.',
+    fullDescription: 'Energized & activated by experts for individuals feeling stuck, confused, or afraid of change.',
+    benefits: [
+      'Provides grounding & inner strength',
+      'Boosts confidence to embrace change',
+      'Promotes growth, protection & stability'
+    ],
+    suitableForZodiac: ['Aries', 'Scorpio', 'Leo', 'Capricorn']
+  },
+  {
+    id: 'red-jasper-power-bracelet',
+    name: 'Red Jasper Power Bracelet (Grounding & Vitality)',
+    category: 'Crystal',
+    price: 39,
+    originalPrice: 60,
+    rating: 4.9,
+    reviewsCount: 230,
+    image: redJasperImg,
+    badge: 'ROOT CHAKRA POWER',
+    isAbhimantrit: true,
+    isLabCertified: true,
+    shortDescription: 'Restores strength, keeps you grounded, and boosts physical vitality and stamina.',
+    fullDescription: 'Your source of inner power when feeling low, stressed, or emotionally drained.',
+    benefits: [
+      'Boosts energy, physical strength & health',
+      'Enhances grounding, stability & courage',
+      'Promotes passion, creativity & relationships'
+    ],
+    suitableForZodiac: ['Aries', 'Taurus', 'Scorpio', 'Leo']
+  },
+  {
+    id: 'clear-quartz-black-hematite',
+    name: 'Clear Quartz & Black Hematite Bracelet (Goal Manifestation)',
+    category: 'Crystal',
+    price: 42,
+    originalPrice: 65,
+    rating: 4.9,
+    reviewsCount: 175,
+    image: hematiteImg,
+    badge: 'MANIFESTATION',
+    isAbhimantrit: true,
+    isLabCertified: true,
+    shortDescription: 'Affirmation: "I focus on my goals and am protected." Chakra alignment & energy regulation.',
+    fullDescription: 'Promotes goal achievement, physical vitality, emotional stress relief, and master healing.',
+    benefits: [
+      'Amplifies energy & healing properties',
+      'Promotes manifestation & goal achievement',
+      'Improves chakra alignment & energy flow'
+    ],
+    suitableForZodiac: ['Capricorn', 'Aquarius', 'Aries', 'Libra']
+  },
   {
     id: 'siddha-mala-1-14',
     name: '1-14 Mukhi Complete Siddha Mala (Energized)',
@@ -16,7 +266,7 @@ export const productsData: ProductItem[] = [
     isAbhimantrit: true,
     isLabCertified: true,
     shortDescription: 'The ultimate spiritual shield comprising 1 to 14 Mukhi authentic Nepali Rudrakshas + Gauri Shankar bead.',
-    fullDescription: 'Crafted for complete aura alignment, planetary pacification (Navgrah Shanti), and supreme prosperity. Each bead is hand-selected and lab-certified with X-Ray inspection report.',
+    fullDescription: 'Crafted for complete aura alignment, planetary pacification (Navgrah Shanti), and supreme prosperity. Each bead is hand-selected and lab-certified.',
     benefits: [
       'Balances all 7 Chakras and neutralizes Navgrah doshas',
       'Attracts immense wealth, authority, and health',
@@ -47,131 +297,5 @@ export const productsData: ProductItem[] = [
     ],
     suitableForZodiac: ['Sagittarius', 'Pisces', 'Aries', 'Scorpio'],
     options: ['4.25 Carat', '5.5 Carat', '6.25 Carat']
-  },
-  {
-    id: '5-mukhi-rudraksha-mala',
-    name: 'Natural 5 Mukhi Nepali Rudraksha Japa Mala',
-    category: 'Rudraksha',
-    price: 49,
-    originalPrice: 75,
-    rating: 4.9,
-    reviewsCount: 389,
-    image: 'https://images.unsplash.com/photo-1606760227091-3dd858d97240?auto=format&fit=crop&q=80&w=800',
-    badge: 'BESTSELLER',
-    isAbhimantrit: true,
-    isLabCertified: true,
-    shortDescription: '108+1 genuine 5 Mukhi Nepali beads for peace of mind, stress relief, and Lord Shiva blessings.',
-    fullDescription: '5 Mukhi Rudraksha is ruled by Jupiter (Guru). Ideal for meditation, lowering blood pressure, mental clarity, and spiritual elevation.',
-    benefits: [
-      'Removes anxiety and brings deep inner calm',
-      'Enhances concentration for students and professionals',
-      'Purified with Vedic Mantras & Panchamrit'
-    ],
-    suitableForZodiac: ['Aries', 'Sagittarius', 'Pisces', 'Leo'],
-    options: ['Standard 6mm', 'Premium 8mm', 'Silver Wire']
-  },
-  {
-    id: '7-mukhi-rudraksha',
-    name: '7 Mukhi Nepali Rudraksha (Mahalakshmi Bead)',
-    category: 'Rudraksha',
-    price: 89,
-    originalPrice: 120,
-    rating: 4.9,
-    reviewsCount: 215,
-    image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&q=80&w=800',
-    badge: 'WEALTH MAGNET',
-    isAbhimantrit: true,
-    isLabCertified: true,
-    shortDescription: 'Ruled by Goddess Mahalakshmi & Saturn (Shani). Unlocks financial stability & career growth.',
-    fullDescription: 'Attracts new income opportunities, protects against financial losses, and mitigates Shani Sade Sati effects.',
-    benefits: [
-      'Attracts steady income and business success',
-      'Pacifies Saturn (Shani) malefic influences',
-      'Lab Certified with unique authenticity code'
-    ],
-    suitableForZodiac: ['Capricorn', 'Aquarius', 'Taurus', 'Libra']
-  },
-  {
-    id: 'emerald-panna',
-    name: 'Zambian Emerald (Panna) - High Luster',
-    category: 'Gemstone',
-    price: 249,
-    originalPrice: 350,
-    rating: 4.8,
-    reviewsCount: 144,
-    image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&q=80&w=800',
-    badge: 'BUDH RATNA',
-    isAbhimantrit: true,
-    isLabCertified: true,
-    shortDescription: 'Natural deep green Emerald for sharp communication, financial intellect, and trade success.',
-    fullDescription: 'Ruled by Mercury (Budh). Ideal for entrepreneurs, speakers, CA, writers, and traders seeking sharp focus.',
-    benefits: [
-      'Sharpens memory and public speaking prowess',
-      'Attracts wealth through smart investments',
-      'Includes IGI / Govt Lab Test Report'
-    ],
-    suitableForZodiac: ['Gemini', 'Virgo', 'Taurus', 'Libra']
-  },
-  {
-    id: 'pyrite-bracelet-money',
-    name: 'Natural Pyrite Money Magnet Bracelet',
-    category: 'Crystal',
-    price: 39,
-    originalPrice: 60,
-    rating: 4.9,
-    reviewsCount: 512,
-    image: 'https://images.unsplash.com/photo-1598560917505-59a3ad559071?auto=format&fit=crop&q=80&w=800',
-    badge: 'POPULAR CRYSTAL',
-    isAbhimantrit: true,
-    isLabCertified: true,
-    shortDescription: 'Golden Pyrite "Fool Gold" crystal for manifestation, wealth magnetizing, and shielding.',
-    fullDescription: 'Known as the stone of wealth and willpower. Pyrite stimulates the solar plexus chakra, boosting confidence and financial opportunities.',
-    benefits: [
-      'Manifests abundance & financial growth',
-      'Shields against negative energy and jealousy',
-      'Energized with Lakshmi & Kuber Mantras'
-    ],
-    suitableForZodiac: ['Leo', 'Aries', 'Sagittarius', 'Capricorn']
-  },
-  {
-    id: 'amethyst-cluster-crystal',
-    name: 'Natural Amethyst Healing Crystal Geode',
-    category: 'Crystal',
-    price: 65,
-    originalPrice: 95,
-    rating: 4.9,
-    reviewsCount: 167,
-    image: 'https://images.unsplash.com/photo-1567696911980-2eed69a46042?auto=format&fit=crop&q=80&w=800',
-    badge: 'STRESS RELIEF',
-    isAbhimantrit: true,
-    isLabCertified: true,
-    shortDescription: 'Raw Brazilian Amethyst cluster for third-eye awakening, insomnia relief, and space purification.',
-    fullDescription: 'Amethyst radiates calm violet energy that dispels anxiety, enhances intuition, and cleanses home or office Vastu.',
-    benefits: [
-      'Promotes peaceful sleep and reduces stress',
-      'Protects space from electro-magnetic radiation',
-      'Hand-cleansed with Sacred Sage'
-    ],
-    suitableForZodiac: ['Aquarius', 'Pisces', 'Virgo', 'Capricorn']
-  },
-  {
-    id: 'shree-yantra-panchdhatu',
-    name: 'Heavy 3D Panchdhatu Shree Yantra (Energized)',
-    category: 'Yantra',
-    price: 119,
-    originalPrice: 160,
-    rating: 5.0,
-    reviewsCount: 203,
-    image: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&q=80&w=800',
-    badge: 'VASTU CORRECTION',
-    isAbhimantrit: true,
-    isLabCertified: true,
-    shortDescription: 'Authentic 3D Meru Shree Yantra for home & office Vastu alignment and financial growth.',
-    fullDescription: 'The king of all sacred geometric yantras. Draws positive cosmic vibrations, eliminates Vastu doshas, and brings prosperity.',
-    benefits: [
-      'Removes stubborn Vastu defects without demolition',
-      'Invites Mahalakshmi presence into house/office',
-      'Energized in Haridwar Ghat rituals'
-    ]
   }
 ];

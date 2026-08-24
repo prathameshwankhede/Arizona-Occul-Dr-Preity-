@@ -2,12 +2,9 @@ import React, { useState } from 'react';
 import type { PageRoute, ProductItem } from '../types';
 import { SectionHeader } from '../components/SectionHeader';
 import { ProductCard } from '../components/ProductCard';
-import { PlaceholderBadge } from '../components/PlaceholderBadge';
 import { productsData } from '../data/products';
-import { zodiacData } from '../data/zodiac';
-import { faqsData } from '../data/faqs';
 import { doctorProfile } from '../data/doctor';
-import { servicesListData, servicesPosterImg } from '../data/servicesList';
+import { servicesPosterImg } from '../data/servicesList';
 
 import {
   Calendar,
@@ -15,19 +12,13 @@ import {
   Award,
   ArrowRight,
   Sun,
-  ChevronDown,
-  ChevronUp,
   Flame,
-  Globe,
   Sparkles,
   Phone,
   TrendingUp,
-  PenTool,
   Home as HomeIcon,
-  Edit3,
-  Gem,
-  Hash,
-  MessageCircle
+  MessageCircle,
+  Check
 } from 'lucide-react';
 
 interface Props {
@@ -39,19 +30,25 @@ interface Props {
 }
 
 export const HomePage: React.FC<Props> = ({
-  setActivePage,
   openConsultationModal,
   openQuickView,
   onAddToCart,
   searchQuery
 }) => {
-  const [selectedZodiacId, setSelectedZodiacId] = useState('aries');
-  const [selectedProblemGoal, setSelectedProblemGoal] = useState<'wealth' | 'love' | 'protection' | 'career' | 'health'>('wealth');
   const [activeCategoryFilter, setActiveCategoryFilter] = useState<string>('All');
-  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const [showFullServicesPoster, setShowFullServicesPoster] = useState(false);
 
-  const selectedZodiac = zodiacData.find((z) => z.id === selectedZodiacId) || zodiacData[0];
+  // Form State matching mockup "Book a Consultation"
+  const [formData, setFormData] = useState({
+    fullName: '',
+    phoneNumber: '',
+    emailAddress: '',
+    selectedService: 'Astrology Services',
+    preferredDate: '',
+    preferredTime: '',
+    message: ''
+  });
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const filteredProducts = productsData.filter((prod) => {
     const matchesSearch =
@@ -66,241 +63,89 @@ export const HomePage: React.FC<Props> = ({
     return matchesSearch && matchesCategory;
   });
 
-  const getServiceIcon = (iconName: string) => {
-    switch (iconName) {
-      case 'Sparkles': return <Sparkles className="w-5 h-5 text-amber-600" />;
-      case 'Hash': return <Hash className="w-5 h-5 text-amber-600" />;
-      case 'Phone': return <Phone className="w-5 h-5 text-amber-600" />;
-      case 'TrendingUp': return <TrendingUp className="w-5 h-5 text-amber-600" />;
-      case 'PenTool': return <PenTool className="w-5 h-5 text-amber-600" />;
-      case 'Home': return <HomeIcon className="w-5 h-5 text-amber-600" />;
-      case 'Edit3': return <Edit3 className="w-5 h-5 text-amber-600" />;
-      case 'ShieldCheck': return <ShieldCheck className="w-5 h-5 text-amber-600" />;
-      case 'Gem': return <Gem className="w-5 h-5 text-amber-600" />;
-      case 'Flame': return <Flame className="w-5 h-5 text-amber-600" />;
-      default: return <Sparkles className="w-5 h-5 text-amber-600" />;
-    }
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const text = `Hello Dr. Preity, I want to book a consultation:%0A- Name: ${formData.fullName}%0A- Phone: ${formData.phoneNumber}%0A- Email: ${formData.emailAddress}%0A- Service: ${formData.selectedService}%0A- Date: ${formData.preferredDate}%0A- Time: ${formData.preferredTime}%0A- Message: ${formData.message}`;
+    window.open(`https://wa.me/918390125338?text=${text}`, '_blank');
+    setFormSubmitted(true);
   };
 
   return (
-    <div className="space-y-16 pb-20 md:pb-16 gems-bg">
+    <div className="space-y-16 pb-20 md:pb-16 arizona-navy-bg">
       
-      {/* 0. GEMSMANTRA OFFICIAL STORY HIGHLIGHTS */}
-      <div className="bg-white border-b border-amber-200 py-4 px-4 overflow-x-auto hide-scrollbar flex items-center gap-4 justify-start md:justify-center shadow-sm">
+      {/* 1. HERO SECTION (EXACT MATCH TO MOCKUP LEFT TOP) */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#050b1a] via-[#07122b] to-[#0a1738] text-white pt-10 pb-20 lg:pt-20 lg:pb-32 border-b border-amber-500/20">
         
-        <button
-          onClick={openConsultationModal}
-          className="flex-shrink-0 flex flex-col items-center gap-1.5 group"
-        >
-          <div className="w-16 h-16 rounded-full p-0.5 bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-600 shadow-md">
-            <div className="w-full h-full rounded-full bg-white overflow-hidden flex items-center justify-center border-2 border-white group-hover:scale-105 transition-transform">
-              <img src={doctorProfile.photoUrl} alt="Dr. Preity" className="w-full h-full object-cover" />
-            </div>
-          </div>
-          <span className="text-[11px] font-extrabold text-slate-900">Dr. Preity</span>
-        </button>
-
-        <button
-          onClick={() => {
-            document.getElementById('our-services-section')?.scrollIntoView({ behavior: 'smooth' });
-          }}
-          className="flex-shrink-0 flex flex-col items-center gap-1.5 group"
-        >
-          <div className="w-16 h-16 rounded-full p-0.5 bg-gradient-to-tr from-yellow-400 to-amber-600 shadow-md">
-            <div className="w-full h-full rounded-full bg-amber-50 flex items-center justify-center border-2 border-white text-amber-800 font-black text-xs">
-              🌟 10 Services
-            </div>
-          </div>
-          <span className="text-[11px] font-bold text-slate-700">Services</span>
-        </button>
-
-        <button
-          onClick={() => {
-            setActiveCategoryFilter('Rudraksha');
-            document.getElementById('catalog-section')?.scrollIntoView({ behavior: 'smooth' });
-          }}
-          className="flex-shrink-0 flex flex-col items-center gap-1.5 group"
-        >
-          <div className="w-16 h-16 rounded-full p-0.5 bg-gradient-to-tr from-amber-600 to-amber-400 shadow-md">
-            <div className="w-full h-full rounded-full bg-amber-50 flex items-center justify-center border-2 border-white text-amber-800 font-black text-xs">
-              📿 Siddha
-            </div>
-          </div>
-          <span className="text-[11px] font-bold text-slate-700">Rudraksha</span>
-        </button>
-
-        <button
-          onClick={() => {
-            setActiveCategoryFilter('Gemstone');
-            document.getElementById('catalog-section')?.scrollIntoView({ behavior: 'smooth' });
-          }}
-          className="flex-shrink-0 flex flex-col items-center gap-1.5 group"
-        >
-          <div className="w-16 h-16 rounded-full p-0.5 bg-gradient-to-tr from-yellow-500 to-amber-600 shadow-md">
-            <div className="w-full h-full rounded-full bg-amber-50 flex items-center justify-center border-2 border-white text-amber-800 font-black text-xs">
-              💎 Pukhraj
-            </div>
-          </div>
-          <span className="text-[11px] font-bold text-slate-700">Gemstones</span>
-        </button>
-
-        <button
-          onClick={() => {
-            setActiveCategoryFilter('Crystal');
-            document.getElementById('catalog-section')?.scrollIntoView({ behavior: 'smooth' });
-          }}
-          className="flex-shrink-0 flex flex-col items-center gap-1.5 group"
-        >
-          <div className="w-16 h-16 rounded-full p-0.5 bg-gradient-to-tr from-emerald-500 to-amber-500 shadow-md">
-            <div className="w-full h-full rounded-full bg-emerald-50 flex items-center justify-center border-2 border-white text-emerald-800 font-black text-xs">
-              ✨ Crystals
-            </div>
-          </div>
-          <span className="text-[11px] font-bold text-slate-700">Bracelets</span>
-        </button>
-
-        <button
-          onClick={() => {
-            setActivePage('remedies-calculator');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          className="flex-shrink-0 flex flex-col items-center gap-1.5 group"
-        >
-          <div className="w-16 h-16 rounded-full p-0.5 bg-gradient-to-tr from-purple-600 to-amber-500 shadow-md">
-            <div className="w-full h-full rounded-full bg-purple-50 flex items-center justify-center border-2 border-white text-purple-900 font-black text-xs">
-              🔮 Kundli
-            </div>
-          </div>
-          <span className="text-[11px] font-bold text-slate-700">Calculator</span>
-        </button>
-
-      </div>
-
-      {/* 1. GEMSMANTRA OFFICIAL ULTRA-LUXURY HERO BANNER */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#fffdf9] via-white to-[#fff8ea] text-slate-900 pt-8 pb-16 lg:pt-16 lg:pb-28 border-b border-amber-200">
+        {/* Astrological Cosmic Wheel Overlay */}
+        <div className="absolute top-10 right-10 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
-            {/* Left Content */}
+            {/* Left Column (Exact Headline from Mockup) */}
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
               
-              {/* Live Availability Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100/80 border border-amber-300 text-amber-900 text-xs font-black tracking-wider shadow-sm">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
-                <span>100% X-RAY LAB CERTIFIED • CALL/WHATSAPP: 8390125338</span>
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-amber-500/40 text-amber-400 text-xs font-bold">
+                <Sparkles className="w-4 h-4 text-amber-400" />
+                <span>Dr. Preity Helpline: +91 8390125338</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl xl:text-6xl font-black text-slate-900 tracking-tight leading-[1.15]">
-                GemsMantra Vedic Remedies &{' '}
-                <span className="text-amber-600 block mt-1">
-                  100% Lab Certified Crystals
-                </span>
+              <h1 className="text-4xl sm:text-5xl xl:text-6xl font-black text-white tracking-tight leading-[1.12]">
+                Align Your Energy<br />
+                <span className="gold-gradient-text">Attract Success</span><br />
+                Remove Negativity
               </h1>
 
-              <p className="text-base sm:text-lg text-slate-600 font-medium leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                Awaken your divine luck with Energized Abundance Bracelets, 1–14 Mukhi Siddha Malas, Ceylon Pukhraj, and 1-on-1 Kundli Consultations with <strong className="text-slate-900">Dr. Preity</strong> (8390125338).
+              <p className="text-lg sm:text-xl text-amber-200/90 font-medium tracking-wide">
+                Divine Guidance for a Better Life
               </p>
 
-              {/* CTAs */}
-              <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5">
+              {/* Exact Mockup Buttons: Book a Consultation (Gold) & Chat on WhatsApp (Green) */}
+              <div className="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                 <button
                   onClick={openConsultationModal}
-                  className="w-full sm:w-auto px-8 py-4 rounded-2xl gems-gold-btn text-white font-black text-base shadow-xl transform active:scale-95 transition-all flex items-center justify-center gap-2.5"
+                  className="w-full sm:w-auto px-8 py-4 rounded-xl arizona-gold-btn text-slate-950 font-black text-base shadow-2xl flex items-center justify-center gap-2.5"
                 >
-                  <Calendar className="w-5 h-5 text-white" />
-                  <span>Book Consultation (8390125338)</span>
+                  <Calendar className="w-5 h-5 text-slate-950" />
+                  <span>Book a Consultation</span>
                 </button>
 
                 <a
                   href="https://wa.me/918390125338"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-base shadow-md transition-all flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-8 py-4 rounded-xl arizona-whatsapp-btn text-white font-bold text-base shadow-lg flex items-center justify-center gap-2.5"
                 >
-                  <MessageCircle className="w-5 h-5" />
-                  <span>WhatsApp 8390125338</span>
+                  <MessageCircle className="w-5 h-5 text-white" />
+                  <span>Chat on WhatsApp</span>
                 </a>
-              </div>
-
-              {/* GemsMantra Trust Badges */}
-              <div className="pt-6 border-t border-amber-200 grid grid-cols-3 gap-3 text-left">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center flex-shrink-0 border border-amber-200">
-                    <ShieldCheck className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <span className="text-xs font-black text-slate-900 block leading-tight">100% Certified</span>
-                    <span className="text-[10px] text-slate-500">X-Ray Guarantee</span>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2.5">
-                  <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center flex-shrink-0 border border-amber-200">
-                    <Flame className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <span className="text-xs font-black text-slate-900 block leading-tight">Pran Pratishtha</span>
-                    <span className="text-[10px] text-slate-500">Vedic Consecrated</span>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2.5">
-                  <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center flex-shrink-0 border border-amber-200">
-                    <Globe className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <span className="text-xs font-black text-slate-900 block leading-tight">Express Global</span>
-                    <span className="text-[10px] text-slate-500">Insured Shipping</span>
-                  </div>
-                </div>
               </div>
 
             </div>
 
-            {/* Right Card Visual */}
+            {/* Right Column (Zodiac Crystal Artwork from Mockup) */}
             <div className="lg:col-span-5 flex justify-center">
               <div className="relative w-full max-w-md">
-                <div className="relative gems-card rounded-3xl p-6 shadow-xl space-y-5">
-                  
-                  <div className="relative h-72 rounded-2xl overflow-hidden bg-slate-100 border border-amber-200">
+                <div className="arizona-card rounded-3xl p-6 shadow-2xl border border-amber-500/30 text-center space-y-4">
+                  <div className="relative h-72 rounded-2xl overflow-hidden bg-slate-950 border border-amber-500/30">
                     <img
                       src={doctorProfile.photoUrl}
-                      alt="Dr. Preity Astrologer"
-                      className="w-full h-full object-cover filter hover:scale-105 transition-transform duration-500"
+                      alt="Dr. Preity"
+                      className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent" />
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <span className="text-[10px] font-extrabold px-3 py-1 rounded-full bg-amber-500 text-slate-950 font-mono uppercase tracking-wider shadow">
-                        Awaken • Align • Attract
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
+                    <div className="absolute bottom-4 left-4 right-4 text-left">
+                      <span className="text-[10px] font-black px-3 py-1 rounded bg-amber-500 text-slate-950 uppercase">
+                        Arizona Occult • Dr. Preity
                       </span>
-                      <h3 className="text-2xl font-black text-white mt-1">Dr. Preity</h3>
+                      <h3 className="text-xl font-bold text-white mt-1">Vedic & Occult Specialist</h3>
                       <p className="text-xs text-amber-300 font-mono">Call/WhatsApp: 8390125338</p>
                     </div>
                   </div>
 
-                  <div className="bg-amber-50/60 rounded-2xl p-4 border border-amber-200 text-xs space-y-2.5">
-                    <div className="flex justify-between">
-                      <span className="text-slate-500 font-medium">Specialties:</span>
-                      <span className="text-slate-900 font-black">Astrology, Numerology, Vastu</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-500 font-medium">Remedies:</span>
-                      <span className="text-amber-700 font-black">Abhimantrit Rudraksh & Gems</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-500 font-medium">Direct Helpline:</span>
-                      <span className="text-emerald-700 font-mono font-black">8390125338</span>
-                    </div>
+                  <div className="bg-slate-950/80 p-3 rounded-xl border border-amber-500/20 text-xs text-amber-200">
+                    ✨ 100% Lab Certified Nepali Rudraksh & Energized Crystals
                   </div>
-
-                  <button
-                    onClick={openConsultationModal}
-                    className="w-full py-3.5 gems-gold-btn text-white font-black text-xs rounded-xl shadow-lg flex items-center justify-center gap-2"
-                  >
-                    <Calendar className="w-4 h-4" />
-                    <span>Book Private Session (8390125338)</span>
-                  </button>
-
                 </div>
               </div>
             </div>
@@ -309,305 +154,247 @@ export const HomePage: React.FC<Props> = ({
         </div>
       </section>
 
-      {/* GEMSMANTRA GOAL REMEDY FINDER WIDGET */}
+      {/* 2. TRUST BANNER (EXACT 5 CARDS FROM MOCKUP) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="gems-card rounded-3xl p-6 sm:p-10 shadow-lg space-y-6">
-          <SectionHeader
-            badge="GemsMantra Goal Finder"
-            title="Shop Remedies by Your Personal Life Goal"
-            subtitle="Select what you wish to manifest to view targeted crystal & astrological remedies."
-            centered
-          />
-
-          {/* Goal Switcher Tabs */}
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-            <button
-              onClick={() => setSelectedProblemGoal('wealth')}
-              className={`p-3.5 rounded-2xl border text-center transition-all ${
-                selectedProblemGoal === 'wealth'
-                  ? 'bg-amber-600 text-white border-amber-600 font-black shadow-md scale-105'
-                  : 'bg-white text-slate-700 border-amber-200 hover:bg-amber-50'
-              }`}
-            >
-              <div className="text-base mb-1">💰</div>
-              <div className="text-xs font-bold">Wealth & Business</div>
-            </button>
-
-            <button
-              onClick={() => setSelectedProblemGoal('love')}
-              className={`p-3.5 rounded-2xl border text-center transition-all ${
-                selectedProblemGoal === 'love'
-                  ? 'bg-amber-600 text-white border-amber-600 font-black shadow-md scale-105'
-                  : 'bg-white text-slate-700 border-amber-200 hover:bg-amber-50'
-              }`}
-            >
-              <div className="text-base mb-1">💍</div>
-              <div className="text-xs font-bold">Love & Beauty</div>
-            </button>
-
-            <button
-              onClick={() => setSelectedProblemGoal('protection')}
-              className={`p-3.5 rounded-2xl border text-center transition-all ${
-                selectedProblemGoal === 'protection'
-                  ? 'bg-amber-600 text-white border-amber-600 font-black shadow-md scale-105'
-                  : 'bg-white text-slate-700 border-amber-200 hover:bg-amber-50'
-              }`}
-            >
-              <div className="text-base mb-1">🛡️</div>
-              <div className="text-xs font-bold">Protection & Evil Eye</div>
-            </button>
-
-            <button
-              onClick={() => setSelectedProblemGoal('career')}
-              className={`p-3.5 rounded-2xl border text-center transition-all ${
-                selectedProblemGoal === 'career'
-                  ? 'bg-amber-600 text-white border-amber-600 font-black shadow-md scale-105'
-                  : 'bg-white text-slate-700 border-amber-200 hover:bg-amber-50'
-              }`}
-            >
-              <div className="text-base mb-1">📚</div>
-              <div className="text-xs font-bold">Focus & Career</div>
-            </button>
-
-            <button
-              onClick={() => setSelectedProblemGoal('health')}
-              className={`p-3.5 rounded-2xl border text-center transition-all ${
-                selectedProblemGoal === 'health'
-                  ? 'bg-amber-600 text-white border-amber-600 font-black shadow-md scale-105'
-                  : 'bg-white text-slate-700 border-amber-200 hover:bg-amber-50'
-              }`}
-            >
-              <div className="text-base mb-1">🏥</div>
-              <div className="text-xs font-bold">Health & Peace</div>
-            </button>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          
+          <div className="arizona-card p-4 rounded-2xl text-center space-y-2">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 mx-auto flex items-center justify-center border border-amber-500/30">
+              <Award className="w-5 h-5" />
+            </div>
+            <h4 className="text-xs font-bold text-white">Expert Guidance</h4>
+            <p className="text-[10px] text-slate-400">Experienced & Trusted</p>
           </div>
 
-          {/* Goal Remedy Highlight Card */}
-          <div className="bg-amber-50/60 p-6 rounded-2xl border border-amber-200 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-            <div>
-              <span className="text-xs font-extrabold text-amber-700 uppercase tracking-wider block">
-                Target Remedy Category
-              </span>
-              <h3 className="text-xl font-extrabold text-slate-900 mt-1">
-                {selectedProblemGoal === 'wealth' && 'Abundance & Financial Prosperity'}
-                {selectedProblemGoal === 'love' && 'Sundari Beauty & Self-Love Combo'}
-                {selectedProblemGoal === 'protection' && 'Sulemani Hakik & Tourmaline Shield'}
-                {selectedProblemGoal === 'career' && 'Focus, Memory & Third Eye Activation'}
-                {selectedProblemGoal === 'health' && 'Amethyst Calmness & Stress Relief'}
-              </h3>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                Handpicked 100% natural crystals consecrated with specific mantras for fast goal manifestation.
-              </p>
+          <div className="arizona-card p-4 rounded-2xl text-center space-y-2">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 mx-auto flex items-center justify-center border border-amber-500/30">
+              <Sparkles className="w-5 h-5" />
             </div>
+            <h4 className="text-xs font-bold text-white">Personalized Solutions</h4>
+            <p className="text-[10px] text-slate-400">Tailored to Your Needs</p>
+          </div>
 
-            <div className="space-y-2 text-xs">
-              <div className="flex justify-between bg-white p-2.5 rounded-xl border border-amber-200">
-                <span className="text-slate-500">Prescribed Stone:</span>
-                <span className="font-extrabold text-amber-700">
-                  {selectedProblemGoal === 'wealth' && 'Citrine, Pyrite, Green Aventurine'}
-                  {selectedProblemGoal === 'love' && 'Moonstone, Carnelian, Rose Quartz'}
-                  {selectedProblemGoal === 'protection' && 'Black Tourmaline, Sulemani Hakik'}
-                  {selectedProblemGoal === 'career' && 'Lapis Lazuli, Clear Quartz'}
-                  {selectedProblemGoal === 'health' && 'Amethyst, Howlite Crystal'}
-                </span>
-              </div>
-
-              <div className="flex justify-between bg-white p-2.5 rounded-xl border border-amber-200">
-                <span className="text-slate-500">Consecration:</span>
-                <span className="font-extrabold text-emerald-700">Pran Pratishtha Blessed</span>
-              </div>
+          <div className="arizona-card p-4 rounded-2xl text-center space-y-2">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 mx-auto flex items-center justify-center border border-amber-500/30">
+              <Flame className="w-5 h-5" />
             </div>
+            <h4 className="text-xs font-bold text-white">Authentic Practices</h4>
+            <p className="text-[10px] text-slate-400">100% Genuine & Energetic</p>
+          </div>
 
-            <button
-              onClick={() => {
-                document.getElementById('catalog-section')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="w-full py-3 gems-gold-btn text-white font-black text-xs rounded-xl shadow-md flex items-center justify-center gap-2"
-            >
-              <span>View Target Remedies Catalog</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
+          <div className="arizona-card p-4 rounded-2xl text-center space-y-2">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 mx-auto flex items-center justify-center border border-amber-500/30">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <h4 className="text-xs font-bold text-white">Secure & Confidential</h4>
+            <p className="text-[10px] text-slate-400">Your Privacy Is Our Priority</p>
+          </div>
+
+          <div className="arizona-card p-4 rounded-2xl text-center space-y-2 col-span-2 md:col-span-1">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 mx-auto flex items-center justify-center border border-amber-500/30">
+              <Sun className="w-5 h-5" />
+            </div>
+            <h4 className="text-xs font-bold text-white">Positive Transformation</h4>
+            <p className="text-[10px] text-slate-400">Better Energy, Better Life</p>
           </div>
 
         </div>
       </section>
 
-      {/* 2. OFFICIAL 10 SERVICES OF DR. PREITY */}
-      <section id="our-services-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      {/* 3. "OUR CONSULTATIONS" SECTION (EXACT MATCH TO MOCKUP) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
-        <div className="gems-card rounded-3xl p-6 sm:p-10 shadow-lg space-y-8">
+        <SectionHeader
+          badge="Expert Occult Practice"
+          title="Our Consultations"
+          subtitle="Explore Dr. Preity's specialized Vedic and occult consultation domains."
+          centered
+        />
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
           
-          <SectionHeader
-            badge="Official Practice Spectrum"
-            title="OUR SERVICES — Arizona Occult by Dr. Preity"
-            subtitle="Align Your Energy • Attract Success • Remove Negativity"
-            centered
-          />
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            
-            {/* Left: Embedded Official Services Poster Card */}
-            <div className="lg:col-span-5 flex flex-col items-center">
-              <div className="relative rounded-2xl overflow-hidden shadow-xl border-2 border-amber-500/40 bg-slate-900 aspect-[4/5] w-full max-w-sm group">
-                <img
-                  src={servicesPosterImg}
-                  alt="Arizona Occult Our Services Official Poster"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-slate-950/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <button
-                    onClick={() => setShowFullServicesPoster(true)}
-                    className="bg-amber-500 text-slate-950 font-extrabold text-xs px-4 py-2 rounded-xl shadow-xl flex items-center gap-2"
-                  >
-                    <span>View Full Poster</span>
-                  </button>
-                </div>
+          <div className="arizona-card p-5 rounded-2xl text-center space-y-3 flex flex-col justify-between hover:border-amber-400 transition-all">
+            <div className="space-y-3">
+              <div className="w-14 h-14 rounded-full bg-slate-950 border-2 border-amber-400 text-amber-400 mx-auto flex items-center justify-center shadow-lg">
+                <Sparkles className="w-6 h-6" />
               </div>
+              <h3 className="text-sm font-bold text-white">Astrology Services</h3>
+            </div>
+            <button onClick={openConsultationModal} className="text-xs font-bold text-amber-400 hover:underline flex items-center justify-center gap-1">
+              <span>Learn More</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
 
-              <div className="text-center mt-3 text-xs text-amber-800 font-mono font-extrabold">
-                📞 Direct Contact: 8390125338
+          <div className="arizona-card p-5 rounded-2xl text-center space-y-3 flex flex-col justify-between hover:border-amber-400 transition-all">
+            <div className="space-y-3">
+              <div className="w-14 h-14 rounded-full bg-slate-950 border-2 border-amber-400 text-amber-400 mx-auto flex items-center justify-center shadow-lg font-mono font-bold text-xs">
+                1 2 3<br />4 5 6
               </div>
+              <h3 className="text-sm font-bold text-white">Numerology Services</h3>
             </div>
+            <button onClick={openConsultationModal} className="text-xs font-bold text-amber-400 hover:underline flex items-center justify-center gap-1">
+              <span>Learn More</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
 
-            {/* Right: 10 Interactive Service Cards */}
-            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {servicesListData.map((srv) => (
-                <div
-                  key={srv.id}
-                  className="bg-white border border-amber-200 hover:border-amber-500 p-4 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between space-y-3 group"
-                >
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <div className="w-9 h-9 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                        {getServiceIcon(srv.iconName)}
-                      </div>
-                      <span className="text-[9px] font-extrabold px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 font-mono uppercase">
-                        {srv.tag}
-                      </span>
-                    </div>
-
-                    <h3 className="text-sm font-extrabold text-slate-900 group-hover:text-amber-600 transition-colors">
-                      {srv.title}
-                    </h3>
-
-                    <p className="text-xs text-slate-600 leading-relaxed">
-                      {srv.shortDesc}
-                    </p>
-                  </div>
-
-                  <button
-                    onClick={openConsultationModal}
-                    className="w-full py-2 gems-gold-btn text-white font-bold text-xs rounded-xl transition-colors flex items-center justify-center gap-1.5"
-                  >
-                    <span>Book Service</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              ))}
+          <div className="arizona-card p-5 rounded-2xl text-center space-y-3 flex flex-col justify-between hover:border-amber-400 transition-all">
+            <div className="space-y-3">
+              <div className="w-14 h-14 rounded-full bg-slate-950 border-2 border-amber-400 text-amber-400 mx-auto flex items-center justify-center shadow-lg">
+                <Phone className="w-6 h-6" />
+              </div>
+              <h3 className="text-sm font-bold text-white">Mobile Number Consultation</h3>
             </div>
+            <button onClick={openConsultationModal} className="text-xs font-bold text-amber-400 hover:underline flex items-center justify-center gap-1">
+              <span>Learn More</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
 
+          <div className="arizona-card p-5 rounded-2xl text-center space-y-3 flex flex-col justify-between hover:border-amber-400 transition-all">
+            <div className="space-y-3">
+              <div className="w-14 h-14 rounded-full bg-slate-950 border-2 border-amber-400 text-amber-400 mx-auto flex items-center justify-center shadow-lg">
+                <TrendingUp className="w-6 h-6" />
+              </div>
+              <h3 className="text-sm font-bold text-white">Business Astronumero Consultation</h3>
+            </div>
+            <button onClick={openConsultationModal} className="text-xs font-bold text-amber-400 hover:underline flex items-center justify-center gap-1">
+              <span>Learn More</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          <div className="arizona-card p-5 rounded-2xl text-center space-y-3 flex flex-col justify-between hover:border-amber-400 transition-all">
+            <div className="space-y-3">
+              <div className="w-14 h-14 rounded-full bg-slate-950 border-2 border-amber-400 text-amber-400 mx-auto flex items-center justify-center shadow-lg">
+                <HomeIcon className="w-6 h-6" />
+              </div>
+              <h3 className="text-sm font-bold text-white">Vastu Consultation</h3>
+            </div>
+            <button onClick={openConsultationModal} className="text-xs font-bold text-amber-400 hover:underline flex items-center justify-center gap-1">
+              <span>Learn More</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
           </div>
 
         </div>
 
+        <div className="text-center pt-2">
+          <button
+            onClick={() => setShowFullServicesPoster(true)}
+            className="px-8 py-3.5 rounded-xl arizona-gold-btn text-slate-950 font-black text-xs shadow-lg inline-flex items-center gap-2"
+          >
+            <span>Explore All Consultations & 10 Services Poster</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
+
       </section>
 
-      {/* 3. PRO ZODIAC REMEDIES CALCULATOR */}
+      {/* 4. "WHY CHOOSE ARIZONA OCCULT?" & "OUR CONSULTATION PROCESS" (EXACT MOCKUP MATCH) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="gems-card rounded-3xl p-6 sm:p-10 shadow-lg">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
-          <SectionHeader
-            badge="Interactive Astrological Tool"
-            title="Find Your Ideal Rudraksha & Lucky Gemstone"
-            subtitle="Select your Zodiac Sign (Rashi) to discover your ruling planet and prescribed Vedic remedies."
-          />
+          {/* Left: Why Choose Arizona Occult? */}
+          <div className="lg:col-span-5 arizona-card p-6 sm:p-8 rounded-3xl space-y-6">
+            <h3 className="text-xl font-bold text-white">Why Choose Arizona Occult?</h3>
+            
+            <ul className="space-y-3 text-xs text-slate-200">
+              <li className="flex items-center gap-2.5">
+                <Check className="w-4 h-4 text-amber-400 flex-shrink-0" />
+                <span>Personalized One-to-One Guidance</span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <Check className="w-4 h-4 text-amber-400 flex-shrink-0" />
+                <span>Ancient Wisdom with Modern Approach</span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <Check className="w-4 h-4 text-amber-400 flex-shrink-0" />
+                <span>Confidential & Trusted Consultations</span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <Check className="w-4 h-4 text-amber-400 flex-shrink-0" />
+                <span>Holistic & Practical Solutions</span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <Check className="w-4 h-4 text-amber-400 flex-shrink-0" />
+                <span>Positive Energy & Spiritual Growth</span>
+              </li>
+            </ul>
 
-          {/* Zodiac Buttons - Mobile Touch Friendly Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3 my-6">
-            {zodiacData.map((zodiac) => (
-              <button
-                key={zodiac.id}
-                onClick={() => setSelectedZodiacId(zodiac.id)}
-                className={`p-3.5 rounded-2xl text-center border transition-all ${
-                  selectedZodiacId === zodiac.id
-                    ? 'bg-amber-600 text-white border-amber-600 font-black shadow-md scale-105'
-                    : 'bg-white border-amber-200 text-slate-700 hover:bg-amber-50'
-                }`}
-              >
-                <div className="text-sm font-bold">{zodiac.name}</div>
-                <div className="text-[10px] opacity-80 mt-0.5">{zodiac.sanskritName.split(' ')[0]}</div>
-              </button>
-            ))}
+            <button
+              onClick={openConsultationModal}
+              className="w-full py-3 rounded-xl arizona-gold-btn text-slate-950 font-extrabold text-xs"
+            >
+              Know More About Us
+            </button>
           </div>
 
-          {/* Selected Result Card */}
-          <div className="bg-amber-50/60 rounded-2xl p-6 border border-amber-200 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-            <div>
-              <span className="text-xs font-extrabold text-amber-700 uppercase tracking-wider block">
-                Zodiac Profile: {selectedZodiac.sanskritName}
-              </span>
-              <h3 className="text-2xl font-black text-slate-900 mt-1">
-                {selectedZodiac.name} Rashi
-              </h3>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                {selectedZodiac.description}
-              </p>
-            </div>
+          {/* Right: Our Consultation Process */}
+          <div className="lg:col-span-7 arizona-card p-6 sm:p-8 rounded-3xl space-y-6">
+            <h3 className="text-xl font-bold text-white text-center sm:text-left">Our Consultation Process</h3>
 
-            <div className="space-y-2.5 text-xs">
-              <div className="flex justify-between bg-white p-2.5 rounded-xl border border-amber-200">
-                <span className="text-slate-500">Ruling Planet:</span>
-                <span className="font-extrabold text-amber-700">{selectedZodiac.ruler}</span>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+              
+              <div className="space-y-2">
+                <div className="w-12 h-12 rounded-full bg-amber-500 text-slate-950 font-black text-xs mx-auto flex items-center justify-center shadow">
+                  01
+                </div>
+                <h4 className="text-xs font-bold text-white">Choose Your Service</h4>
+                <p className="text-[10px] text-slate-400">Select the consultation you need.</p>
               </div>
-              <div className="flex justify-between bg-white p-2.5 rounded-xl border border-amber-200">
-                <span className="text-slate-500">Prescribed Rudraksha:</span>
-                <span className="font-extrabold text-slate-900">{selectedZodiac.recommendedRudraksha}</span>
-              </div>
-              <div className="flex justify-between bg-white p-2.5 rounded-xl border border-amber-200">
-                <span className="text-slate-500">Lucky Gemstone:</span>
-                <span className="font-extrabold text-emerald-700">{selectedZodiac.luckyGemstone}</span>
-              </div>
-            </div>
 
-            <div className="bg-white p-4 rounded-xl border border-amber-300 text-center space-y-3 shadow-sm">
-              <span className="text-[10px] font-extrabold text-amber-900 uppercase tracking-widest block">
-                Sacred Vedic Mantra
-              </span>
-              <p className="text-xs font-mono italic text-amber-900 font-semibold">
-                "{selectedZodiac.mantra}"
-              </p>
-              <button
-                onClick={openConsultationModal}
-                className="w-full py-2.5 gems-gold-btn text-white font-black text-xs rounded-xl shadow-md"
-              >
-                Confirm Recommendation with Dr. Preity (8390125338)
-              </button>
+              <div className="space-y-2">
+                <div className="w-12 h-12 rounded-full bg-amber-500 text-slate-950 font-black text-xs mx-auto flex items-center justify-center shadow">
+                  02
+                </div>
+                <h4 className="text-xs font-bold text-white">Book Your Consultation</h4>
+                <p className="text-[10px] text-slate-400">Fill the form or connect on WhatsApp.</p>
+              </div>
+
+              <div className="space-y-2">
+                <div className="w-12 h-12 rounded-full bg-amber-500 text-slate-950 font-black text-xs mx-auto flex items-center justify-center shadow">
+                  03
+                </div>
+                <h4 className="text-xs font-bold text-white">One-to-One Guidance</h4>
+                <p className="text-[10px] text-slate-400">Get expert guidance from Dr. Preity.</p>
+              </div>
+
+              <div className="space-y-2">
+                <div className="w-12 h-12 rounded-full bg-amber-500 text-slate-950 font-black text-xs mx-auto flex items-center justify-center shadow">
+                  04
+                </div>
+                <h4 className="text-xs font-bold text-white">Receive Personalized Recommendations</h4>
+                <p className="text-[10px] text-slate-400">Follow practical steps & transform your life.</p>
+              </div>
+
             </div>
           </div>
 
         </div>
       </section>
 
-      {/* 4. CATALOG & E-COMMERCE STORE */}
+      {/* 5. "SHOP SPIRITUAL PRODUCTS" SECTION (EXACT MOCKUP RIGHT TOP MATCH) */}
       <section id="catalog-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <SectionHeader
-            badge="100% Authentic & Lab Certified"
-            title="Spiritual Remedies Catalog"
-            subtitle="Hand-selected Nepali Rudrakshas, Navratna Gemstones, and Energized Crystal Bracelets."
+            badge="100% Genuine & Energetic"
+            title="Shop Spiritual Products"
+            subtitle="Handcrafted crystal clusters, bracelets, 5 Mukhi Rudraksha, and Shree Yantras."
           />
 
-          {/* Filter Categories */}
+          {/* Category Tabs (Exact Mockup Match) */}
           <div className="flex flex-wrap gap-2">
-            {['All', 'Rudraksha', 'Gemstone', 'Crystal', 'Yantra'].map((cat) => (
+            {['All Products', 'Crystals', 'Rudraksha', 'Yantra / Mantra'].map((cat) => (
               <button
                 key={cat}
-                onClick={() => setActiveCategoryFilter(cat)}
+                onClick={() => setActiveCategoryFilter(cat === 'All Products' ? 'All' : cat)}
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                  activeCategoryFilter === cat
-                    ? 'bg-amber-600 text-white shadow-md'
-                    : 'bg-white text-slate-700 hover:bg-amber-50 border border-amber-200'
+                  (activeCategoryFilter === 'All' && cat === 'All Products') || activeCategoryFilter === cat
+                    ? 'arizona-gold-btn text-slate-950 shadow-md'
+                    : 'bg-slate-900/80 text-slate-300 hover:bg-slate-800 border border-amber-500/30'
                 }`}
               >
                 {cat}
@@ -617,7 +404,7 @@ export const HomePage: React.FC<Props> = ({
         </div>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredProducts.map((product) => (
             <ProductCard
               key={product.id}
@@ -629,163 +416,200 @@ export const HomePage: React.FC<Props> = ({
         </div>
       </section>
 
-      {/* 5. ABOUT DR. PREITY SECTION */}
+      {/* 6. "BOOK A CONSULTATION" FORM & "BENEFITS OF CONSULTATIONS" (EXACT MOCKUP BOTTOM RIGHT MATCH) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="gems-card rounded-3xl p-8 lg:p-12 shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          <div className="lg:col-span-5 relative">
-            <div className="rounded-2xl overflow-hidden shadow-lg border border-amber-200 aspect-[4/5] bg-slate-100">
-              <img
-                src={doctorProfile.photoUrl}
-                alt="Dr. Preity"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="absolute -bottom-4 -right-4 bg-amber-600 text-white p-4 rounded-2xl shadow-xl flex items-center gap-3">
-              <Sun className="w-8 h-8 text-yellow-300" />
-              <div>
-                <span className="text-[10px] font-semibold block uppercase tracking-wider text-amber-100">Occult Vision</span>
-                <span className="text-xs font-bold block">Vedic Authenticity</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="lg:col-span-7 space-y-6">
-            <SectionHeader
-              badge="Meet Your Astrologer"
-              title="About Dr. Preity"
-              subtitle="Guiding thousands toward clarity, prosperity, and peace of mind through authentic Vedic remedies."
-            />
-
-            <p className="text-slate-700 text-sm leading-relaxed">
-              {doctorProfile.bio}
-            </p>
-
-            <div className="bg-amber-50/60 border border-amber-200 rounded-2xl p-5 space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-extrabold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
-                  <Award className="w-4 h-4 text-amber-600" />
-                  <span>Verified Credentials & Helpline</span>
-                </span>
-                <span className="text-xs text-emerald-700 font-mono font-black">8390125338</span>
-              </div>
-              <ul className="space-y-1.5 text-xs text-slate-700 font-mono">
-                <li>• Phone / WhatsApp: 8390125338</li>
-                <li>• Education: {doctorProfile.educationPlaceholder}</li>
-                <li>• Certifications: {doctorProfile.qualificationsPlaceholder}</li>
-                <li>• Experience: {doctorProfile.experiencePlaceholder}</li>
-              </ul>
-            </div>
-
-            <div className="pt-2 flex items-center gap-4">
-              <button
-                onClick={openConsultationModal}
-                className="px-6 py-3 rounded-xl gems-gold-btn text-white font-extrabold text-xs transition-colors shadow-md"
-              >
-                Book 1-on-1 Session with Dr. Preity (8390125338)
-              </button>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* 6. PATIENT & DEVOTEE REVIEWS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-slate-900 text-white rounded-3xl p-8 lg:p-12 border border-slate-800 shadow-2xl">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8">
+          {/* Left Form */}
+          <div className="lg:col-span-7 arizona-card p-6 sm:p-8 rounded-3xl space-y-5">
             <div>
-              <span className="text-xs font-semibold px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 uppercase tracking-wider">
-                Devotee Feedback
-              </span>
-              <h2 className="text-3xl font-extrabold text-white mt-2">Client Transformations & Reviews</h2>
+              <h3 className="text-2xl font-bold text-white">Book a Consultation</h3>
+              <p className="text-xs text-slate-400 mt-1">Fill the form below or connect on WhatsApp (+91 8390125338).</p>
             </div>
-            <PlaceholderBadge text="Verified Client Feedback Placeholders" />
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-3">
-              <div className="text-amber-400 flex gap-1 text-xs">★★★★★</div>
-              <p className="text-slate-300 text-xs italic">
-                "[Add Verified Client Review #1 regarding Dr. Preity Kundli guidance and Abundance Bracelet impact here]"
-              </p>
-              <div className="text-xs font-bold text-white pt-2 border-t border-slate-800">
-                - Client Placeholder #1 (Phoenix, AZ)
+            {formSubmitted ? (
+              <div className="bg-emerald-950/80 border border-emerald-500/50 p-6 rounded-2xl text-center space-y-2">
+                <Check className="w-10 h-10 text-emerald-400 mx-auto" />
+                <h4 className="text-base font-bold text-white">Booking Request Initiated!</h4>
+                <p className="text-xs text-emerald-200">Opening WhatsApp conversation with Dr. Preity (8390125338)...</p>
               </div>
-            </div>
-
-            <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-3">
-              <div className="text-amber-400 flex gap-1 text-xs">★★★★★</div>
-              <p className="text-slate-300 text-xs italic">
-                "[Add Verified Client Review #2 regarding Business Astro-Numero consultation & logo designing success here]"
-              </p>
-              <div className="text-xs font-bold text-white pt-2 border-t border-slate-800">
-                - Client Placeholder #2 (Tucson, AZ)
-              </div>
-            </div>
-
-            <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-3">
-              <div className="text-amber-400 flex gap-1 text-xs">★★★★★</div>
-              <p className="text-slate-300 text-xs italic">
-                "[Add Verified Client Review #3 regarding Sulemani Hakik bracelet & Vastu consultation here]"
-              </p>
-              <div className="text-xs font-bold text-white pt-2 border-t border-slate-800">
-                - Client Placeholder #3 (Scottsdale, AZ)
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQS */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          badge="Frequently Asked Questions"
-          title="Understanding Astrological Remedies"
-          subtitle="Answers to common questions about gemstones, Rudraksha activation, and consultations."
-          centered
-        />
-
-        <div className="space-y-4">
-          {faqsData.map((faq, index) => {
-            const isOpen = openFaqIndex === index;
-            return (
-              <div
-                key={index}
-                className="gems-card rounded-2xl overflow-hidden shadow-sm transition-all"
-              >
-                <button
-                  onClick={() => setOpenFaqIndex(isOpen ? null : index)}
-                  className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-slate-900 hover:text-amber-600 transition-colors focus:outline-none"
-                >
-                  <span className="text-sm">{faq.question}</span>
-                  {isOpen ? <ChevronUp className="w-5 h-5 text-amber-600" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
-                </button>
-                {isOpen && (
-                  <div className="px-5 pb-5 text-slate-600 text-xs leading-relaxed border-t border-amber-100 pt-3">
-                    {faq.answer}
+            ) : (
+              <form onSubmit={handleFormSubmit} className="space-y-4 text-xs">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-slate-300 mb-1 font-semibold">Full Name</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="Enter your full name"
+                      value={formData.fullName}
+                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-amber-500/30 text-white focus:outline-none focus:border-amber-400"
+                    />
                   </div>
-                )}
+
+                  <div>
+                    <label className="block text-slate-300 mb-1 font-semibold">Phone Number</label>
+                    <input
+                      type="tel"
+                      required
+                      placeholder="Enter your phone number"
+                      value={formData.phoneNumber}
+                      onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-amber-500/30 text-white focus:outline-none focus:border-amber-400"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-slate-300 mb-1 font-semibold">Email Address</label>
+                    <input
+                      type="email"
+                      placeholder="Enter your email address"
+                      value={formData.emailAddress}
+                      onChange={(e) => setFormData({ ...formData, emailAddress: e.target.value })}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-amber-500/30 text-white focus:outline-none focus:border-amber-400"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-slate-300 mb-1 font-semibold">Select Service</label>
+                    <select
+                      value={formData.selectedService}
+                      onChange={(e) => setFormData({ ...formData, selectedService: e.target.value })}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-amber-500/30 text-white focus:outline-none focus:border-amber-400"
+                    >
+                      <option value="Astrology Services">Astrology Services</option>
+                      <option value="Numerology Services">Numerology Services</option>
+                      <option value="Mobile Number Consultation">Mobile Number Consultation</option>
+                      <option value="Business Astronumero Consultation">Business Astronumero Consultation</option>
+                      <option value="Vastu Consultation">Vastu Consultation</option>
+                      <option value="Logo Designing">Logo Designing</option>
+                      <option value="Name Correction">Name Correction</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-slate-300 mb-1 font-semibold">Preferred Date</label>
+                    <input
+                      type="date"
+                      value={formData.preferredDate}
+                      onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-amber-500/30 text-white focus:outline-none focus:border-amber-400"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-slate-300 mb-1 font-semibold">Preferred Time</label>
+                    <input
+                      type="time"
+                      value={formData.preferredTime}
+                      onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-amber-500/30 text-white focus:outline-none focus:border-amber-400"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-slate-300 mb-1 font-semibold">Message (Optional)</label>
+                  <textarea
+                    rows={3}
+                    placeholder="Write your message..."
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-amber-500/30 text-white focus:outline-none focus:border-amber-400"
+                  />
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                  <button
+                    type="submit"
+                    className="w-full sm:w-1/2 py-3.5 arizona-gold-btn text-slate-950 font-black rounded-xl text-xs"
+                  >
+                    Request Consultation
+                  </button>
+                  <a
+                    href="https://wa.me/918390125338"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-full sm:w-1/2 py-3.5 arizona-whatsapp-btn text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    <span>Contact on WhatsApp</span>
+                  </a>
+                </div>
+              </form>
+            )}
+          </div>
+
+          {/* Right Benefits Column */}
+          <div className="lg:col-span-5 arizona-card p-6 sm:p-8 rounded-3xl space-y-6">
+            <h3 className="text-xl font-bold text-white">Benefits of Consultations</h3>
+
+            <div className="space-y-4 text-xs">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0 border border-amber-500/30">
+                  <Sparkles className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-white">Clarity in Life</h4>
+                  <p className="text-slate-400 text-[11px] mt-0.5">Get clarity in confusion and make better decisions.</p>
+                </div>
               </div>
-            );
-          })}
+
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0 border border-amber-500/30">
+                  <Flame className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-white">Positive Energy</h4>
+                  <p className="text-slate-400 text-[11px] mt-0.5">Remove negativity and attract positive energy.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0 border border-amber-500/30">
+                  <Sun className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-white">Better Relationships</h4>
+                  <p className="text-slate-400 text-[11px] mt-0.5">Improve relationships and bring harmony.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0 border border-amber-500/30">
+                  <Award className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-white">Success & Prosperity</h4>
+                  <p className="text-slate-400 text-[11px] mt-0.5">Attract success, wealth and abundance.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
         </div>
       </section>
 
       {/* FULL SERVICES POSTER MODAL */}
       {showFullServicesPoster && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/70 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="relative max-w-2xl w-full bg-white rounded-3xl p-4 border border-amber-300 shadow-2xl">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="relative max-w-2xl w-full bg-slate-900 rounded-3xl p-4 border border-amber-500/40 shadow-2xl">
             <button
               onClick={() => setShowFullServicesPoster(false)}
-              className="absolute top-6 right-6 p-2.5 rounded-full bg-amber-100 hover:bg-amber-200 text-amber-900 z-10 shadow-lg"
+              className="absolute top-6 right-6 p-2.5 rounded-full bg-slate-800 hover:bg-slate-700 text-white z-10 shadow-lg"
             >
               ✕
             </button>
             <img
               src={servicesPosterImg}
               alt="Dr. Preity Official 10 Services Poster"
-              className="w-full h-auto rounded-2xl border border-amber-200"
+              className="w-full h-auto rounded-2xl border border-slate-800"
             />
           </div>
         </div>

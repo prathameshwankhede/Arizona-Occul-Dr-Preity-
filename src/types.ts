@@ -28,6 +28,7 @@ export interface ProductItem {
   rating: number;
   reviewsCount: number;
   image: string;
+  posterImage?: string; // Official poster/infographic image for Flipkart style modal details
   badge?: string;
   isAbhimantrit: boolean;
   isLabCertified: boolean;

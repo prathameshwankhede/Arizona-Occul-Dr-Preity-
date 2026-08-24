@@ -1,16 +1,19 @@
 import type { ProductItem } from '../types';
 
-import abundanceImg from '../assets/products/abundance.jpg';
-import tourmalineImg from '../assets/products/tourmaline.jpg';
-import lapisFocusImg from '../assets/products/lapis_focus.jpg';
-import hematiteImg from '../assets/products/hematite.jpg';
-import sundariBeautyImg from '../assets/products/sundari_beauty.jpg';
-import sulemaniHakikImg from '../assets/products/sulemani_hakik.jpg';
-import amethystQuartzImg from '../assets/products/amethyst_quartz.jpg';
-import mookaiteImg from '../assets/products/mookaite.jpg';
-import redJasperImg from '../assets/products/red_jasper.jpg';
-import carnelianImg from '../assets/products/carnelian.jpg';
-import howliteImg from '../assets/products/howlite.jpg';
+import abundancePosterImg from '../assets/products/abundance.jpg';
+import tourmalinePosterImg from '../assets/products/tourmaline.jpg';
+import lapisFocusPosterImg from '../assets/products/lapis_focus.jpg';
+import hematitePosterImg from '../assets/products/hematite.jpg';
+import sundariBeautyPosterImg from '../assets/products/sundari_beauty.jpg';
+import sulemaniHakikPosterImg from '../assets/products/sulemani_hakik.jpg';
+import amethystQuartzPosterImg from '../assets/products/amethyst_quartz.jpg';
+import mookaitePosterImg from '../assets/products/mookaite.jpg';
+import redJasperPosterImg from '../assets/products/red_jasper.jpg';
+import carnelianPosterImg from '../assets/products/carnelian.jpg';
+import howlitePosterImg from '../assets/products/howlite.jpg';
+
+import abundancePhotoImg from '../assets/products/abundance_photo.jpg';
+import sundariPhotoImg from '../assets/products/sundari_photo.jpg';
 
 import siddhaMalaImg from '../assets/siddha_mala.jpg';
 import pukhrajImg from '../assets/pukhraj.jpg';
@@ -24,7 +27,8 @@ export const productsData: ProductItem[] = [
     originalPrice: 79,
     rating: 5.0,
     reviewsCount: 342,
-    image: abundanceImg,
+    image: abundancePhotoImg,
+    posterImage: abundancePosterImg,
     badge: 'FLAGSHIP REMEDY',
     isAbhimantrit: true,
     isLabCertified: true,
@@ -47,7 +51,8 @@ export const productsData: ProductItem[] = [
     originalPrice: 70,
     rating: 5.0,
     reviewsCount: 289,
-    image: sundariBeautyImg,
+    image: sundariPhotoImg,
+    posterImage: sundariBeautyPosterImg,
     badge: 'BEAUTY & LOVE',
     isAbhimantrit: true,
     isLabCertified: true,
@@ -70,7 +75,8 @@ export const productsData: ProductItem[] = [
     originalPrice: 65,
     rating: 4.9,
     reviewsCount: 215,
-    image: tourmalineImg,
+    image: tourmalinePosterImg,
+    posterImage: tourmalinePosterImg,
     badge: 'PROTECTION SHIELD',
     isAbhimantrit: true,
     isLabCertified: true,
@@ -91,7 +97,8 @@ export const productsData: ProductItem[] = [
     originalPrice: 75,
     rating: 5.0,
     reviewsCount: 198,
-    image: lapisFocusImg,
+    image: lapisFocusPosterImg,
+    posterImage: lapisFocusPosterImg,
     badge: '3RD EYE ACTIVATION',
     isAbhimantrit: true,
     isLabCertified: true,
@@ -112,7 +119,8 @@ export const productsData: ProductItem[] = [
     originalPrice: 60,
     rating: 4.9,
     reviewsCount: 310,
-    image: sulemaniHakikImg,
+    image: sulemaniHakikPosterImg,
+    posterImage: sulemaniHakikPosterImg,
     badge: 'SHANI & RAHU PROTECTION',
     isAbhimantrit: true,
     isLabCertified: true,
@@ -134,7 +142,8 @@ export const productsData: ProductItem[] = [
     originalPrice: 65,
     rating: 4.9,
     reviewsCount: 276,
-    image: amethystQuartzImg,
+    image: amethystQuartzPosterImg,
+    posterImage: amethystQuartzPosterImg,
     badge: 'STRESS RELIEF',
     isAbhimantrit: true,
     isLabCertified: true,
@@ -155,7 +164,8 @@ export const productsData: ProductItem[] = [
     originalPrice: 60,
     rating: 4.9,
     reviewsCount: 184,
-    image: carnelianImg,
+    image: carnelianPosterImg,
+    posterImage: carnelianPosterImg,
     badge: 'CONFIDENCE & DRIVE',
     isAbhimantrit: true,
     isLabCertified: true,
@@ -177,7 +187,8 @@ export const productsData: ProductItem[] = [
     originalPrice: 58,
     rating: 4.8,
     reviewsCount: 162,
-    image: howliteImg,
+    image: howlitePosterImg,
+    posterImage: howlitePosterImg,
     badge: 'STONE OF CALMNESS',
     isAbhimantrit: true,
     isLabCertified: true,
@@ -198,7 +209,8 @@ export const productsData: ProductItem[] = [
     originalPrice: 70,
     rating: 4.9,
     reviewsCount: 145,
-    image: mookaiteImg,
+    image: mookaitePosterImg,
+    posterImage: mookaitePosterImg,
     badge: 'NEW BEGINNINGS',
     isAbhimantrit: true,
     isLabCertified: true,
@@ -219,7 +231,8 @@ export const productsData: ProductItem[] = [
     originalPrice: 60,
     rating: 4.9,
     reviewsCount: 230,
-    image: redJasperImg,
+    image: redJasperPosterImg,
+    posterImage: redJasperPosterImg,
     badge: 'ROOT CHAKRA POWER',
     isAbhimantrit: true,
     isLabCertified: true,
@@ -240,7 +253,8 @@ export const productsData: ProductItem[] = [
     originalPrice: 65,
     rating: 4.9,
     reviewsCount: 175,
-    image: hematiteImg,
+    image: hematitePosterImg,
+    posterImage: hematitePosterImg,
     badge: 'MANIFESTATION',
     isAbhimantrit: true,
     isLabCertified: true,
